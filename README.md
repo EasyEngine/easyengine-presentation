@@ -1,4 +1,4 @@
 easyengine-presentation
 =======================
 
-Presentation explaining easyengine
+Presentation explaining [easyengine](https://github.com/rtCamp/easyengine)
