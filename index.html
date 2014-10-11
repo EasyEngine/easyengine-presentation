@@ -1,3 +1,7 @@
+<!-- TODO
+	1. Font-Awesome Support
+	2. PT Sans to Open Sans or some other font
+-->
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -5,448 +9,397 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=792, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="bower_components/shower-ribbon/styles/screen.css">
+	<link rel="stylesheet" href="bower_components/highlightjs/styles/sunburst.css">
+	<script src="bower_components/highlightjs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
 	<style type="text/css">
 		.aligncenter {text-align: center;}
 		.alignleft {float: left; }
 		.alignright {float: right;}
 		.clear {float: none; clear: both;}
-
-		.shout p {position: absolute; top: 75%; left: 0; width: 100%; text-align: center;
-						font-size: 50px; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); color: #777}
 		.slide.no-ribbon:after {visibility: hidden;}
-		blockquote {color: #555}
+		.slide.shout h2{font-size: 60px}
+		.shout p {position: absolute; top: 60%; left: 0; width: 100%; text-align: center; color: #777}
+		blockquote {font-size: 35px;}
+		.slide pre {font-size: 20px;}
+		.slide:after {background: url(pictures/ribbon.svg) no-repeat}
+		.full .progress div {border-bottom-color: #060}
+		/*00a800}*/
+		/*.slide pre code {white-space: pre-wrap}*/
+		/*.slide blockquote:before {font-size: 20px}*/
+/*
+
 		figcaption {color: #444}
-		/*.slide code {background: #f1f1f1}*/
 		.full .progress {overflow: hidden;}
 
 		.slide {background: #fff url(pictures/wordcamp-mumbai-footer.jpg) no-repeat right 531px;}
-		.small {font-size: 22px}
-		
+		.small {font-size: 22px}*/
 	</style>
 </head>
 <body class="list">
 	<header class="caption">
-		<h1>EasyEngine</h1>
-		<p>by rtCamp</p>
+		<h1>WordPress-Nginx Best Practices. With EasyEngine.</h1>
+		<p>by Rahul Bansal (from rtCamp)</p>
 	</header>
-	<section class="slide no-ribbon" id="cover"><div>
-		<img id="wclogo" class="alignright" src="pictures/wordcamp-mumbai-big.jpg" alt="WordCamp Mumbai 2014">
-		<p class="aligncenter">		
-			<img id="eelogo" width="400px" src="pictures/easyengine.png" alt="EasyEngine">
-			<br/>
-			<span>Easy ( WordPress + Nginx )</span>
-			<br/>
-			<span><em> by </em> rtCamp</span>
-			<br/>
-			<span class="small">Mitesh Shah &amp; Rahul Bansal</span>
-		</p>
-		<!-- <h2>EasyEngine</h2> -->
-<!-- 		<figure class="clear">
-			<blockquote>
-				<p>Progress doesn't come from early risers — progress is made by lazy men looking for easier ways to do things.
-				</p>
-			</blockquote>
-			<figcaption>Robert A. Heinlein</figcaption>
-		</figure>		
- -->	
-		<style>	
-			#cover img#wclogo {position: absolute; max-height: 200px; max-width: 200px; left: 835px; top: 0px;  }
-			#cover img#eelogo {margin-top: 40px }
-			#cover h2{font-size: 80px; text-align: center;}
-			#cover.slide {background: #fff}
+
+	<section class="slide no-ribbon aligncenter" id="cover"><div>
+			<img src="pictures/nginx-conf-logo.png" alt="nginx.conf 2014"/>
+			<h2>WordPress-Nginx Best Practices. With EasyEngine.</h2>
+			<p><em> by </em> Rahul Bansal (from rtCamp)</p>
+		<style>
+			#cover img {margin-bottom:40px; }
+			#cover h2{font-size: 40px; }
 		</style>
 	</div></section>
-	<section class="slide"><div>
-		<h2>Table of Contents</h2>
-		<ol>		
-			<li>Introduction</li>
-			<li>Motivation</li>
-			<li>Features
-			<li>Inside EasyEngine</li>						
-			<li>Roadmap</li>						
-			<li>Getting Involved</li>
-			<li>Demo</li>
-		</ol>
-	</div></section>	
-	<section class="slide shout"><div>
-		<h2>Introduction</h2>		
-		<p>Hello World!</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>EasyEngine is...</h2>		
-		<!-- <img width="275px" src="pictures/cli.jpg" class="alignright">		 -->
-		<ul>
-			<li>a command-line tool</li>
-			<li>coded in shell scripting language</li>
-			<li>"control-panel" for geeks/developers</li>
-			<li>made for WordPress</li>			
-			<li>GPL like WordPress</li>			
-		</ul>			
-	</div></section>
-
-<!-- 	<section class="slide"><div>
-		<h2>Created to...</h2>		
-		<img width="275px" src="pictures/cli.jpg" class="alignright">		
-		<ul>
-			<li>Save money</li>
-			<li>Save time</li>
-			<li>More money <em>(because time is money!)</em> </li>			
-		</ul>			
-	</div></section> -->
 
 	<section class="slide shout"><div>
-		<h2>Motivation</h2>
-		<p>What annoyed lazy people!</p>
+		<h2>WordPress-NGINX Best Practices</h2>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>cPanel/Plesk  ?#%!@</h2>
-		<!-- <img width="250px" src="pictures/broken-engine.jpg" class="alignright"> -->
-		<ul>
-			<li>Bloated/Resource-Hog</li>
-			<li>TOO many unwanted features</li>
-			<li>NOT made 4 WordPress</li>
-		</ul>		
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Automation</h2>
-		<!-- <img width="250px" src="pictures/learner-sign.jpg" class="alignright"> -->
-		<ul>
-			<li>Performance Optimization</li>
-			<li>Debugging</li>
-			<li>Maintainance</li>
-		</ul>						
-		<figure class="clear">
+		<h2>The Rule!</h2>
+		<figure>
 			<blockquote>
-				<p>Anything that can go wrong — will go wrong!</p>
+				If you can do it in NGINX, just do it in NGINX!
 			</blockquote>
-			<figcaption>Murphy's Law</figcaption>
 		</figure>
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>Installation</h2>
-		<p>Welcome to the Easy world!</p>
+		<h2>#1. nginx fastcgi-cache</h2>
+		<p>Full Page-Cache for non-logged in users</p>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>Inside Shell...</h2>
-		<!-- <img width="225px" src="pictures/cli.jpg" class="alignright">				 -->
+		<h2>Purpose</h2>
+		<ul>
+			<li>Best solution for serving content to non-logged in users</li>
+			<li>Should be used instead full-page-cache from WordPress plugin</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Global Code Fragment</h2>
 		<pre>
-			<code>curl -sL rt.cx/ee | sudo bash</code>
-			<code>ee system install</code>
-			<code>ee site create example.com --wp</code>
+<code class="nginx">fastcgi_cache_path /var/run/nginx-cache keys_zone=WORDPRESS:100m;</code>
+<br/>
+<code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri";</code>
+<br/>
+<code class="nginx">fastcgi_cache_use_stale error updating timeout invalid_header http_500;</code>
 		</pre>
-		<br/>
-		<figure class="clear">
-			<blockquote>
-				<p>Simplicity is the ultimate sophistication!</p>
-			</blockquote>
-			<figcaption>William Gaddis</figcaption>
-		</figure>		
+	</div></section>
+	<section class="slide"><div>
+		<h2>Site Config</h2>
+		<pre>
+<code class="nginx">location ~ \.php$ {</code>
+<code class="nginx">	try_files $uri =404; fastcgi_pass backend;</code>
+<code class="nginx">&nbsp;</code>
+<code class="nginx">	fastcgi_cache WORDPRESS;</code>
+<code class="nginx">	fastcgi_cache_valid  60m;</code>
+<code class="nginx">&nbsp;</code>
+<code class="nginx">	fastcgi_cache_bypass $skip_cache;</code>
+<code class="nginx">	fastcgi_no_cache $skip_cache;</code>
+<code class="nginx">}</code>
+	</pre>
 	</div></section>
 
-	<section class="slide" id="table"><div>
-		<h2>Create "12" Types of WordPress Sites!</h2>
-		<table>		
-		<tr>
-			<th scope="col"><!-- What you want? --></th>
-			<th>Single Site</th>
-			<th>Multisite with Subdir</th>
-			<th>Multisite with Subdom</th>
-		</tr>
-		<tr>
-			<th scope="row">NO Cache</th>
-			<td><code>--wp</code></td>
-			<td><code>--wpsubdir</code></td>
-			<td><code>--wpsubdom</code></td>
-		</tr>
-		<tr>
-			<th scope="row">WP Super Cache</th>
-			<td><code>--wpsc </code></td>
-			<td><code>--wpsc --wpsubdir</code></td>
-			<td><code>--wpsc --wpsubdom</code></td>
-		</tr>
-		<tr>
-			<th scope="row">W3 Total Cache</th>
-			<td><code>--w3tc </code></td>
-			<td><code>--w3tc --wpsubdir</code></td>
-			<td><code>--w3tc --wpsubdom</code></td>
-		</tr>
-		<tr>
-			<th scope="row">Nginx FastCGI Cache</th>
-			<td><code>--wpfc </code></td>
-			<td><code>--wpfc --wpsubdir</code></td>
-			<td><code>--wpfc --wpsubdom</code></td>
-		</tr>
-		</table>		
-		<style type="text/css">
-			#table code {background: #f1f1f1}
-			#table {font-size: 20px}
-			#table td {padding: 10px}
-			#table th {font-weight: 400}
-		</style>
+	<section class="slide"><div>
+		<h2>Cache conditions</h2>
+		<pre>
+<code class="nginx">set $skip_cache 0;</code>
+<code class="nginx">if ($request_method = POST) { set $skip_cache 1; }</code>
+<code class="nginx">if ($query_string != "") { set $skip_cache 1; }
+<code class="nginx">if ($request_uri ~* "/wp-admin/|/xmlrpc.php|wp-.*.php|index.php") {
+	set $skip_cache 1;}</code>
+<code class="nginx">if ($http_cookie ~* "comment_author|wordpress_logged_in|wordpress_*") {
+	set $skip_cache 1;}</code>
+	</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Cache conditions</h2>
+		<pre>
+<code class="nginx">if ($request_uri ~* "<mark class="important">/store/</mark>|<mark class="important">/random/</mark>|/wp-admin/|...") {
+	set $skip_cache 1;	}   </code>
+<br/>
+<code class="nginx">if ($http_cookie ~* "comment_author|<mark class="important">test_cookie</mark>|...") {
+	set $skip_cache 1; 	}</code>
+<br/>
+<code class="nginx">if ($remote_addr ~* "<mark class="important">1.2.3.4</mark>") {
+	set $skip_cache 1;	}   </code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Caching search result pages</h2>
+		<p>Remember? <code>http://example.com/?s=hello</code></p>
+		<pre>
+<code class="nginx">if ($query_string != "") {
+	set $skip_cache 1; }   </code>
+<br/>
+<code class="nginx">if ($arg_s != "") {
+	set $skip_cache 0; }</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Caching multiple versions of a page</h2>
+		<em>Cookie Example</em>
+		<pre><code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri$cookie_country";</code>
+		</pre>
+		<em>User-Agent Example</em>
+		<pre><code class="nginx">set $mobile no;
+if ($http_user_agent ~* "iphone|android|blackberry|netfront") {
+	set $mobile yes;}
+fastcgi_cache_key "$scheme$request_method$host$request_uri$mobile";</code>
+		</pre>
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>Features/Usage</h2>		
-		<p>Driver's manual</p>
+		<h2>#2. NGINX substitution module</h2>
+		<p>CDN &amp; SSL Warning fix</p>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>A Site includes... </h2>
-		<!-- <img width="250px" src="pictures/combo-meal.jpg" class="alignright"> -->
-		<ul>
-			<li>PHP's Zend-Opcache</li>		
-			<li>Memcache for Object-Cache and DB-Cache</li>
-			<li>Full Page-Cache</li>
-			<li>Separate access and error logs</li>
-		</ul>						
+		<h2>CDN (Origin Pull)</h2>
+		<p>
+		<em>Original URL</em> <code>example.com/wp-content/uploads/hello.jpg</code>
+		<em>CDN URL</em> <code><b>cdn</b>.example.com/wp-content/uploads/hello.jpg</code>
+		</p>
+		<pre>
+<code class="nginx">sub_filter "example.com/wp-content/uploads/"
+			 "cdn.example.com/wp-content/uploads/";</code>
+<code class="nginx">sub_filter_last_modified on;</code>
+<code class="nginx">sub_filter_once off;</code>
+		</pre>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>Site management...</h2>
-		<ul>
-			<li>Enable &nbsp;<code>ee site enable example.com</code></li>
-			<li>Disable <code>ee site disable example.com</code></li>
-			<li>Delete &nbsp;<code>ee site delete example.com</code></li>			
-			<li>Info &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ee site info example.com</code></li>			
-		</ul>							
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Debugging...</h2>
-		<ul>
-			<li>Debug system&nbsp;&nbsp;<code>ee debug</code></li>
-			<li>Debug site&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ee debug example.com</code></li>
-			<li>Rewrites only&nbsp;&nbsp;<code>ee debug example.com --rewrite</code></li>		
-			<li>Interactive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ee debug example.com -i</code></li>				
-		</ul>							
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Easy to learn...</h2>
-		<!-- <p  class="aligncenter"><img width="250px" src="pictures/ee-help.jpg" /></p> -->
-		<ul>
-			<li>Built-in help&nbsp;&nbsp;<code>ee help</code></li>
-			<li>Man pages&nbsp;&nbsp;&nbsp;&nbsp;<code>man ee</code></li>			
-			<li>Autocompletion for commands and site-name</li>		
-		</ul>							
-		<br/>
-		<figure class="clear">
-			<blockquote>
-				<p>Never memorize something that you can look up!</p>
-			</blockquote>
-			<figcaption>Albert Einstein</figcaption>
-		</figure>		
-		
-	</div></section>
-
-
-
-	<section class="slide shout"><div>
-		<h2>Inside EasyEngine</h2>		
-		<p>Under The Hood</p>
-	</div></section>
-
-<!-- 	<section class="slide cover" id="hood"><div>
-		<h2>Under The Hood</h2>
-		<img src="pictures/hood.jpg" alt="">
-		<style>
-			#hood h2 { color:#FFF; }
-			#hood img { max-height: 100%; max-width: 100%}
-		</style>
-	</div></section> -->
-
-
-	<section class="slide"><div>
-		<h2>How Quick Setup Works!</h2>				
-		<ul>
-			<li>Prefer binary packages instead of compiling</li>
-			<li>Prefer conventions over database</li>
-			<li>Tweaks differnt configs at the time of installation only</li>
-		</ul>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Conventions</h2>		
-		File structure for example.com site
-		<ul>
-			<li><code>/var/www/example.com/</code> - All files related to example.com</li>
-			<li><code>/var/www/example.com/htdocs/</code> - Document Root</li>
-			<li><code>/var/www/example.com/logs/</code> - Logs</li>
-			<li><code>/var/www/example.com/wp-config.php</code> - WordPress config</li>
-			<li><code>/etc/nginx/sites-available/example.com</code> - Nginx config</li>			
-		</ul>
-		Database details are used from <code>wp-config.php</code>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Git-based backup</h2>	
-		For all configs		
-		<ul>
-			<li><code>/etc/nginx/</code></li>
-			<li><code>/etc/php5/</code></li>
-			<li><code>/etc/mysql/</code></li>
-			<li><code>/etc/postfix/</code></li>
-		</ul>
-		<span>If something goes wrong...</span><br/>
-		<code>git checkout /path/to/config/file</code>
-	</div></section>
-
-
-	<section class="slide"><div>
-		<h2>Administrative Tools</h2>	
-		Port <code>22222</code> for Web-based tools
-		<ul>
-			<li>MySQL admin tools <em>e.g. phpMyAdmin, adminer </em> </li>
-			<li>Debugging tools <em> e.g. Anemometer, WebGrind </em> </li>
-			<li>Stats viewer for MemCache, PHP's Zend-OpCache</li>			
-		</ul>
-		<span>CLI...</span>
-		<ul>
-			<li><code>ee info</code></li>
-			<li><code>ee site info</code></li>
-		</ul>
-	</div></section>
-
-
-	<section class="slide"><div>
-		<h2>Logging</h2>	
-		<ul>
-			<li>Installation log</li>
-			<li>Site creation &amp; other commands log </li>
-			<li>Error log</li>			
-		</ul>
-		<strong>Log Location:</strong> <code>/var/log/easyengine/</code>
+		<h2>SSL - mixed content warning fix</h2>
+		<pre>
+<code class="nginx">sub_filter "http://example.com/wp-content/"
+	 "https://example.com/wp-content/";</code>
+<code class="nginx">sub_filter_last_modified on;</code>
+<code class="nginx">sub_filter_once off;</code>
+		</pre>
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>Roadmap</h2>		
+		<h2>#3. pagespeed module</h2>
+		<p>Reduce page-load time by huge margin!</p>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>Next few milestones...</h2>	
+		<h2>pagespeed module</h2>
 		<ul>
-			<li>Easy Debugging</li>
-			<li>Automated Monitoring with Email Alerts</li>
-			<li>Mail Server</li>			
-			<li>"Shared" Hosting Support</li>							
-			<li>Easy Migrations/Cloning</li>									
-			<li>Offsite/Peer backups</li>	
+			<li>css/js minify &amp; combine.</li>
+			<li>search-replace URL for CDN</li>
+			<li>on the fly image (lossless) compression</li>
+			<li>lazy loading for images</li>
 		</ul>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>Beyond CLI...</h2>	
-		<ul>
-			<li>REST API</li>
-			<li>Web-based control panel</li>
-			<li>Mobile Apps</li>			
-		</ul>
+		<h2>Site-specific Filters</h2>
+		<pre><code class="nginx">#For CSS files
+pagespeed EnableFilters combine_css,rewrite_css;
+
+# For JavaScript files
+pagespeed EnableFilters combine_javascript,rewrite_javascript;
+
+# For Images
+pagespeed EnableFilters lazyload_images;
+pagespeed EnableFilters rewrite_images;
+pagespeed EnableFilters convert_jpeg_to_progressive
+</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Global Config</h2>
+		<pre><code class="nginx"># Turning the module on and off
+pagespeed on;
+
+# Configuring PageSpeed Filters
+pagespeed RewriteLevel PassThrough;
+
+# Needs to exist and be writable by nginx. Use tmpfs for best performance.
+pagespeed FileCachePath /var/ngx_pagespeed_cache;
+</code></pre>
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>Getting Involved</h2>		
-		<p>For "Easier"Engine!</p>
+		<h2>#4. Upstream Module</h2>
+		<p>Load Balancer/Failover</p>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>How you can help?</h2>	
+		<h2>Load-balance Mode</h2>
+<pre><code class="nginx">upstream <mark class="important">backend</mark> {
+	<mark>ip_hash</mark>;
+	server 1.1.1.1;
+	server 2.2.2.2;
+	server 2.2.2.2;
+}</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Failover Mode</h2>
+<pre><code class="nginx">upstream <mark class="important">backend</mark> {
+	server 1.1.1.1;
+	server 2.2.2.2 <mark>backup</mark>;
+}</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Front-end Site Config</h2>
+<pre><code class="nginx">location / {
+	proxy_pass		 http://<mark class="important">backend</mark>;
+	proxy_set_header Host              $host;
+	proxy_set_header X-Real-IP         $remote_addr;
+	proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+	proxy_set_header X-Forwarded-Proto $scheme;
+}</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Backend Nginx Config</h2>
+<pre><code class="nginx">#gloabal config
+	set_real_ip_from   9.9.9.9;
+	real_ip_header     X-Forwarded-For;
+}</code></pre>
+<p><em> It's recommended to use Nginx on backend servers, even though front-end Nginx can talk to PHP running on backend server directly! </em></p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>What if load balancer fails?</h2>
+<li>Configure backend server with Nginx in a way that it can run as standalone server (accessible on port 80).</li>
+<li>Use DNS-based failover to switch traffic from load balancer node to backend server(s). Automate this switch by monitoring health of load-balacer!</li>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>#5. Upstream + HHVM for PHP</h2>
+		<p>Speed for logged in users</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>HHVM with PHP-FPM fallback</h2>
+	<pre><code class="nginx">upstream <mark class="important">php</mark> {
+		server 127.0.0.1:8000;			#hhvm
+		server 127.0.0.1:9000 <mark>backup</mark>;	#php-fpm
+	}</code></pre>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>More Tricks</h2>
+		<p>The list is endless!</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>SSL and spdy</h2>
+		<pre><code class="nginx">#enable SSL cache
+ssl_session_cache   shared:SSL:20m;
+ssl_session_timeout 10m;
+
+#enable spdy
+server {
+   listen 443 ssl <mark class="important">spdy</mark>;
+}</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>URL Redirection</h2>
+		<pre><code class="nginx">#For Single URL
+location = /old/path {
+	return 301 http://foo.com/new/url;
+}
+
+#For Complete Section
+location ~ /old/(.*) {
+	return 301 http://foo.com/new/$1;
+}</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Security with Limit Request Module</h2>
+		<pre><code class="nginx">#global
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+
+#server
+location = <mark>/wp-login.php</mark> {
+    limit_req  zone=one  burst=1 nodelay;
+    include fastcgi_params;
+    fastcgi_pass 127.0.0.1:9000;
+}
+</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Memcache/Redis - Distributed Cache</h2>
+		<li>Recommended for a WordPress site spread across multiple servers</li>
+		<li>WordPress/PHP side codes are needed to “fill” cache</li>
+		<li>For Memcache, NGINX has a core and few third party modules</li>
+		<li>For redis, NGINX has third party modules</li>
+	</div></section>
+
+<section class="slide shout"><div>
+	<h2>EasyEngine</h2>
+</div></section>
+
+	<section class="slide"><div>
+		<h2>What is EasyEngine?</h2>
+		<li>A script to setup and manage multiple wordpress sites with NGINX web server</li>
+		<li>Always up to date with best practices, including most of the stuff we discussed so far</li>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Getting Started!</h2>
+<pre><code class="bash">#install easy-engine
+wget -qO ee rt.cx/ee &amp;&amp; sudo bash ee
+
+#install nginx, php, mysql, postfix
+ee stack install
+
+#install WordPress on example.com
+ee site create example.com --wpfc
+</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>WordPress Multisite Handling</h2>
+<pre><code class="bash">#multisite with subdirectory
+ee site create example.com --wpfc --wpsubdir
+
+#multisite with subdomain
+ee site create example.com --wpfc --wpsubdom
+</code></pre>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>EasyEngine Demo!</h2>
+		<p>It's showtime!</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>EasyEngine Resources</h2>
 		<ul>
-			<li>Coding</li>
-			<li>Documentation</li>
-			<li>Testing</li>			
-			<li>Help others move</li>			
-			<li>Spread the word</li>						
-			<li>Dontations! ;-)</li>			
+			<li>Home&nbsp; => <a href="http://rtcamp.com/easyengine">http://rtcamp.com/easyengine</a></li>
+			<li>Github => <a href="http://github.com/rtCamp/easyengine">http://github.com/rtCamp/easyengine</a></li>
+			<li>Forum  => <a href="http://community.rtcamp.com/category/easyengine/">http://community.rtcamp.com/category/easyengine/</a></li>
 		</ul>
 	</div></section>
 
 
-	<section class="slide"><div>
-		<h2>Useful Links</h2>	
-		<ul>
-			<li>Homepage &nbsp;&nbsp; <a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/</a></li>		
-			<li>Docs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/docs/</a></li>		
-			<li>Github &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/rtCamp/easyengine">https://github.com/rtCamp/easyengine</a></li>
-			<li>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/easyengine">https://twitter.com/easyengine</a></li			
-		</ul>
-	</div></section>	
-
 	<section class="slide shout"><div>
-		<h2>Demo!</h2>		
-		<p>It's showtime!!!</p>
-	</div></section>	
+		<h2>Thanks! :-)</h2>
+		<p>mailto: <a href="mailto:rahul.bansal@rtcamp.com">rahul.bansal@rtcamp.com</a></p>
+	</div></section>
 
-	<section class="slide shout"><div>
-		<h2>Q&A</h2>		
-		<p>Let's talk!</p>
-	</div></section>	
-
-
-	<section class="slide shout"><div>
-		<h2>The End!</h2>		
-		<p>Thanks :-)</p>
-	</div></section>	
-
-<!-- 	<section class="slide shout"><div>
-		<h2>Credits!</h2>		
-		<p>We are greatful...</p>
-	</div></section>	
-
-	<section class="slide"><div>
-		<h2>Images Credits</h2>	
-		<ul>
-			<li>Homepage &nbsp;&nbsp; <a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/</a></li>		
-			<li>Docs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/docs/</a></li>		
-			<li>Github &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/rtCamp/easyengine">https://github.com/rtCamp/easyengine</a></li>
-			<li>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/easyengine">https://twitter.com/easyengine</a></li			
-		</ul>
-	</div></section>	
-	 -->
-<!-- 	<section class="slide shout" id="SeeMore"><div>
-		<h2><img src="pictures/logo.svg" alt=""> <a href="https://github.com/shower/shower/">See more on GitHub</a></h2>
-		<style>
-			#Picture h2 {
-				color:#FFF;
-				}
-			#SeeMore h2 {
-				font-size:100px
-				}
-			#SeeMore img {
-				width:0.72em;
-				height:0.72em;
-				}
-		</style>
-	</div></section> -->
-
-	<!-- <p class="badge"><a href="https://github.com/shower/shower">Fork me on Github</a></p> -->
-	<!--
-		To hide progress bar from entire presentation
-		just remove “progress” element.
-		-->
 	<div class="progress"><div></div></div>
-	<script src="shower/shower.min.js"></script>
+	<script src="bower_components/shower-core/shower.min.js"></script>
+	<script src="http://localhost:35729/livereload.js"></script>
 	<!-- Copyright © 2013 Yours Truly, Famous Inc. -->
 	<!-- Photos by John Carey, fiftyfootshadows.net -->
-
-	<script type="text/javascript">
-
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-15354140-3']);
-	  _gaq.push(['_setDomainName', 'rtcamp.com']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
-	</script>
 </body>
-</html>
+</html><li></li>
