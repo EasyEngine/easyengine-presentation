@@ -1,6 +1,7 @@
 <!-- TODO
 	1. Font-Awesome Support
 	2. PT Sans to Open Sans or some other font
+	3. Min font size should be 24px
 -->
 <!DOCTYPE HTML>
 <html lang="en">
@@ -19,13 +20,19 @@
 		.alignleft {float: left; }
 		.alignright {float: right;}
 		.clear {float: none; clear: both;}
+
 		.slide.no-ribbon:after {visibility: hidden;}
 		.slide.shout h2{font-size: 60px}
 		.shout p {position: absolute; top: 60%; left: 0; width: 100%; text-align: center; color: #777}
 		blockquote {font-size: 35px;}
-		.slide pre {font-size: 20px;}
+		/*.slide {font-size: 35px;}*/
+		.slide pre code {font-size: 24px; }
+		/*.slide pre code.smaller {font-size: 20px; white-space: pre }*/
+		.slide pre br {display: block; margin: 25px 0;content: " ";}
 		.slide:after {background: url(pictures/ribbon.svg) no-repeat}
-		.full .progress div {border-bottom-color: #060}
+
+		.full .progress div {border-bottom-color: #00a800}
+
 		/*00a800}*/
 		/*.slide pre code {white-space: pre-wrap}*/
 		/*.slide blockquote:before {font-size: 20px}*/
@@ -75,19 +82,22 @@
 	<section class="slide"><div>
 		<h2>Purpose</h2>
 		<ul>
-			<li>Best solution for serving content to non-logged in users</li>
-			<li>Should be used instead full-page-cache from WordPress plugin</li>
+			<li>To serve cached content to non-logged in users</li><br/>
+			<li>Should be used instead full-page-cache WordPress plugin</li>
 		</ul>
 	</div></section>
 
 	<section class="slide"><div>
 		<h2>Global Code Fragment</h2>
 		<pre>
-<code class="nginx">fastcgi_cache_path /var/run/nginx-cache keys_zone=WORDPRESS:100m;</code>
+<code class="nginx">fastcgi_cache_path
+	/var/run/nginx-cache keys_zone=<mark class="important">WORDPRESS</mark>:100m;</code>
 <br/>
-<code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri";</code>
+<code class="nginx">fastcgi_cache_key
+	"$scheme$request_method$host$request_uri";</code>
 <br/>
-<code class="nginx">fastcgi_cache_use_stale error updating timeout invalid_header http_500;</code>
+<code class="nginx">fastcgi_cache_use_stale
+	error updating timeout invalid_header http_500;</code>
 		</pre>
 	</div></section>
 	<section class="slide"><div>
@@ -95,10 +105,10 @@
 		<pre>
 <code class="nginx">location ~ \.php$ {</code>
 <code class="nginx">	try_files $uri =404; fastcgi_pass backend;</code>
-<code class="nginx">&nbsp;</code>
-<code class="nginx">	fastcgi_cache WORDPRESS;</code>
+<br/>
+<code class="nginx">	fastcgi_cache <mark class="important">WORDPRESS</mark>;</code>
 <code class="nginx">	fastcgi_cache_valid  60m;</code>
-<code class="nginx">&nbsp;</code>
+<br/>
 <code class="nginx">	fastcgi_cache_bypass $skip_cache;</code>
 <code class="nginx">	fastcgi_no_cache $skip_cache;</code>
 <code class="nginx">}</code>
@@ -111,9 +121,9 @@
 <code class="nginx">set $skip_cache 0;</code>
 <code class="nginx">if ($request_method = POST) { set $skip_cache 1; }</code>
 <code class="nginx">if ($query_string != "") { set $skip_cache 1; }
-<code class="nginx">if ($request_uri ~* "/wp-admin/|/xmlrpc.php|wp-.*.php|index.php") {
+<code class="nginx">if ($request_uri ~* "/wp-admin|index.php|wp-.*.php|...") {
 	set $skip_cache 1;}</code>
-<code class="nginx">if ($http_cookie ~* "comment_author|wordpress_logged_in|wordpress_*") {
+<code class="nginx ">if ($http_cookie ~* "comment_author|wordpress_*|...") {
 	set $skip_cache 1;}</code>
 	</pre>
 	</div></section>
@@ -402,4 +412,4 @@ ee site create example.com --wpfc --wpsubdom
 	<!-- Copyright © 2013 Yours Truly, Famous Inc. -->
 	<!-- Photos by John Carey, fiftyfootshadows.net -->
 </body>
-</html><li></li>
+</html>
