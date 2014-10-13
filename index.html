@@ -10,23 +10,24 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=792, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<link rel="stylesheet" href="bower_components/shower-ribbon/styles/screen.css">
+	<link rel="stylesheet" href="ribbon/styles/screen.css">
 	<link rel="stylesheet" href="bower_components/highlightjs/styles/sunburst.css">
 	<script src="bower_components/highlightjs/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 
 	<style type="text/css">
+		.list .slide {margin: 0 -640px -340px 0; transform: scale(0.4)}
 		.aligncenter {text-align: center;}
 		.alignleft {float: left; }
 		.alignright {float: right;}
 		.clear {float: none; clear: both;}
-
 		.slide.no-ribbon:after {visibility: hidden;}
 		.slide.shout h2{font-size: 60px}
 		.shout p {position: absolute; top: 60%; left: 0; width: 100%; text-align: center; color: #777}
 		blockquote {font-size: 35px;}
-		/*.slide {font-size: 35px;}*/
-		.slide pre code {font-size: 24px; }
+
+		.slide {font-size: 35px; }
+		.slide pre code {font-size: 30px; }
 		/*.slide pre code.smaller {font-size: 20px; white-space: pre }*/
 		.slide pre br {display: block; margin: 25px 0;content: " ";}
 		.slide:after {background: url(pictures/ribbon.svg) no-repeat}
@@ -34,8 +35,6 @@
 		.full .progress div {border-bottom-color: #00a800}
 
 		/*00a800}*/
-		/*.slide pre code {white-space: pre-wrap}*/
-		/*.slide blockquote:before {font-size: 20px}*/
 /*
 
 		figcaption {color: #444}
@@ -67,11 +66,10 @@
 
 	<section class="slide"><div>
 		<h2>The Rule!</h2>
-		<figure>
-			<blockquote>
-				If you can do it in NGINX, just do it in NGINX!
-			</blockquote>
-		</figure>
+		<br/>&nbsp;<br/>
+		<blockquote class="aligncenter">
+			If you can do it in NGINX, just do it in NGINX!
+		</blockquote>
 	</div></section>
 
 	<section class="slide shout"><div>
@@ -121,9 +119,9 @@
 <code class="nginx">set $skip_cache 0;</code>
 <code class="nginx">if ($request_method = POST) { set $skip_cache 1; }</code>
 <code class="nginx">if ($query_string != "") { set $skip_cache 1; }
-<code class="nginx">if ($request_uri ~* "/wp-admin|index.php|wp-.*.php|...") {
+<code class="nginx">if ($request_uri ~* "/wp-admin|index.php|wp-.*.php" ) {
 	set $skip_cache 1;}</code>
-<code class="nginx ">if ($http_cookie ~* "comment_author|wordpress_*|...") {
+<code class="nginx ">if ($http_cookie ~* "comment_author|wordpress_*" ) {
 	set $skip_cache 1;}</code>
 	</pre>
 	</div></section>
@@ -131,7 +129,7 @@
 	<section class="slide"><div>
 		<h2>Cache conditions</h2>
 		<pre>
-<code class="nginx">if ($request_uri ~* "<mark class="important">/store/</mark>|<mark class="important">/random/</mark>|/wp-admin/|...") {
+<code class="nginx">if ($request_uri ~* "<mark class="important">/store/</mark>|/wp-admin/|...") {
 	set $skip_cache 1;	}   </code>
 <br/>
 <code class="nginx">if ($http_cookie ~* "comment_author|<mark class="important">test_cookie</mark>|...") {
@@ -156,14 +154,15 @@
 
 	<section class="slide"><div>
 		<h2>Caching multiple versions of a page</h2>
-		<em>Cookie Example</em>
-		<pre><code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri$cookie_country";</code>
+		<b>Cookie Example</b>
+		<pre><code class="nginx">fastcgi_cache_key
+	 "$scheme$request_method$host$request_uri<mark>$cookie_country</mark>";</code>
 		</pre>
-		<em>User-Agent Example</em>
+		<b>User-Agent Example</b>
 		<pre><code class="nginx">set $mobile no;
-if ($http_user_agent ~* "iphone|android|blackberry|netfront") {
-	set $mobile yes;}
-fastcgi_cache_key "$scheme$request_method$host$request_uri$mobile";</code>
+if ($http_user_agent ~* "iphone|android|...") {set $mobile yes;}
+fastcgi_cache_key
+	"$scheme$request_method$host$request_uri<mark>$mobile</mark>";</code>
 		</pre>
 	</div></section>
 
@@ -174,14 +173,13 @@ fastcgi_cache_key "$scheme$request_method$host$request_uri$mobile";</code>
 
 	<section class="slide"><div>
 		<h2>CDN (Origin Pull)</h2>
-		<p>
-		<em>Original URL</em> <code>example.com/wp-content/uploads/hello.jpg</code>
-		<em>CDN URL</em> <code><b>cdn</b>.example.com/wp-content/uploads/hello.jpg</code>
-		</p>
+		<pre><code class="no-highlight">	 example.com/wp-content/uploads/hello.jpg
+					   &#x25BC;
+<mark class="important">cdn</mark>.example.com/wp-content/uploads/hello.jpg</code></pre>
+		<hr/>
 		<pre>
 <code class="nginx">sub_filter "example.com/wp-content/uploads/"
 			 "cdn.example.com/wp-content/uploads/";</code>
-<code class="nginx">sub_filter_last_modified on;</code>
 <code class="nginx">sub_filter_once off;</code>
 		</pre>
 	</div></section>
@@ -215,14 +213,13 @@ fastcgi_cache_key "$scheme$request_method$host$request_uri$mobile";</code>
 		<h2>Site-specific Filters</h2>
 		<pre><code class="nginx">#For CSS files
 pagespeed EnableFilters combine_css,rewrite_css;
-
 # For JavaScript files
 pagespeed EnableFilters combine_javascript,rewrite_javascript;
 
 # For Images
 pagespeed EnableFilters lazyload_images;
 pagespeed EnableFilters rewrite_images;
-pagespeed EnableFilters convert_jpeg_to_progressive
+pagespeed EnableFilters convert_jpeg_to_progressive;
 </code></pre>
 	</div></section>
 
@@ -231,10 +228,10 @@ pagespeed EnableFilters convert_jpeg_to_progressive
 		<pre><code class="nginx"># Turning the module on and off
 pagespeed on;
 
-# Configuring PageSpeed Filters
+# Disable All PageSpeed Filters by default
 pagespeed RewriteLevel PassThrough;
 
-# Needs to exist and be writable by nginx. Use tmpfs for best performance.
+# Need to exist and writable by nginx.
 pagespeed FileCachePath /var/ngx_pagespeed_cache;
 </code></pre>
 	</div></section>
@@ -252,6 +249,7 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 	server 2.2.2.2;
 	server 2.2.2.2;
 }</code></pre>
+<p><em> All backend servers will share (balance) overall load. </em></p>
 	</div></section>
 
 	<section class="slide"><div>
@@ -260,6 +258,7 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 	server 1.1.1.1;
 	server 2.2.2.2 <mark>backup</mark>;
 }</code></pre>
+<p><em> "backup" server will get requests only when other (primary) server fails. </em></p>
 	</div></section>
 
 	<section class="slide"><div>
@@ -268,7 +267,8 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 	proxy_pass		 http://<mark class="important">backend</mark>;
 	proxy_set_header Host              $host;
 	proxy_set_header X-Real-IP         $remote_addr;
-	proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+	proxy_set_header X-Forwarded-For
+									$proxy_add_x_forwarded_for;
 	proxy_set_header X-Forwarded-Proto $scheme;
 }</code></pre>
 	</div></section>
@@ -284,7 +284,7 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 
 	<section class="slide"><div>
 		<h2>What if load balancer fails?</h2>
-<li>Configure backend server with Nginx in a way that it can run as standalone server (accessible on port 80).</li>
+<li>Configure backend server with Nginx in a way that it can run as standalone server (accessible on port 80).</li><br/>
 <li>Use DNS-based failover to switch traffic from load balancer node to backend server(s). Automate this switch by monitoring health of load-balacer!</li>
 	</div></section>
 
@@ -295,10 +295,11 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 
 	<section class="slide"><div>
 		<h2>HHVM with PHP-FPM fallback</h2>
-	<pre><code class="nginx">upstream <mark class="important">php</mark> {
-		server 127.0.0.1:8000;			#hhvm
-		server 127.0.0.1:9000 <mark>backup</mark>;	#php-fpm
-	}</code></pre>
+<pre><code class="nginx">upstream <mark class="important">php</mark> {
+	server 127.0.0.1:8000;			#hhvm
+	server 127.0.0.1:9000 <mark>backup</mark>;	#php-fpm
+}</code></pre>
+<p><em>hhvm and php-fpm started on same server but different ports</em></p>
 	</div></section>
 
 	<section class="slide shout"><div>
@@ -347,15 +348,30 @@ location = <mark>/wp-login.php</mark> {
 
 	<section class="slide"><div>
 		<h2>Memcache/Redis - Distributed Cache</h2>
-		<li>Recommended for a WordPress site spread across multiple servers</li>
-		<li>WordPress/PHP side codes are needed to “fill” cache</li>
-		<li>For Memcache, NGINX has a core and few third party modules</li>
-		<li>For redis, NGINX has third party modules</li>
+		<ul>
+			<li>Recommended for a WordPress site spread across multiple servers</li>
+			<li>WordPress/PHP side codes are needed to “fill” cache</li>
+			<li>For Memcache, NGINX has a core and few third party modules</li>
+			<li>For redis, NGINX has third party modules</li>
+		</ul>
 	</div></section>
 
-<section class="slide shout"><div>
-	<h2>EasyEngine</h2>
-</div></section>
+	<section class="slide"><div>
+		<h2>What we achieved with golden rule!</h2>
+		<table>
+			<tr><th>task/requirement</th><th>nginx feature/mod</th></tr>
+			<tr><td>full page-cache</td><td>fastcgi-cache</td></tr>
+			<tr><td>cdn (origin pull)</td><td>sub-filter, pagespeed</td></tr>
+			<tr><td>css/js minify &amp; combine</td><td>pagespeed</td></tr>
+			<tr><td>image optimize/lazyload</td><td>pagespeed</td></tr>
+			<tr><td>URL redirection</td><td>location+return, rewrite</td></tr>
+			<tr><td>bruteforce login attack</td><td>limit request module</td></tr>
+		</table>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>EasyEngine</h2>
+	</div></section>
 
 	<section class="slide"><div>
 		<h2>What is EasyEngine?</h2>
