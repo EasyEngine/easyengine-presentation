@@ -17,8 +17,6 @@
 /*blockquote {font-size: 35px;} */
 .slide li{padding-bottom: 35px}
 
-.slide pre code {font-size: 30px; }
-
 .slide pre br {display: block; margin: 25px 0;content: " ";}
 
 section.bigger pre code{font-size: 120%}

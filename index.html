@@ -131,16 +131,17 @@
 
 	<section class="slide"><div>
 		<h2>Caching multiple versions of a page</h2>
-		<b>Cookie Example</b>
-		<pre><code class="nginx">fastcgi_cache_key
-	 "$scheme$request_method$host$request_uri<mark>$cookie_country</mark>";</code>
+		<h3>Cookie Example</h3>
+		<pre><code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri<mark>$cookie_country</mark>";</code>
 		</pre>
-		<b>User-Agent Example</b>
-		<pre><code class="nginx">set $mobile no;
-if ($http_user_agent ~* "iphone|android|...") {set $mobile yes;}
-fastcgi_cache_key
-	"$scheme$request_method$host$request_uri<mark>$mobile</mark>";</code>
-		</pre>
+		<div class="next">
+			<h3>User-Agent Example</h3>
+			<pre><code class="nginx">set $mobile no;</code>
+	<code class="nginx">if ($http_user_agent ~* "iphone|android|...") {
+		set $mobile yes;}</code>
+	<code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri<mark>$mobile</mark>";</code>
+			</pre>
+		</div>
 	</div></section>
 
 	<section class="slide shout"><div>
@@ -361,7 +362,8 @@ location = <mark>/wp-login.php</mark> {
 		<h2>What is EasyEngine?</h2>
 		<ul>
 			<li>Command-line script to manage multiple WordPress sites with Nginx</li>
-			<li>Automatically install latest nginx, php, mysql, and other packages with commonly used modules</li>
+			<li>Automatically install latest nginx, php, mysql, and other packages with commonly used modules.</li>
+			<li>Automatically tweak each package depending on system resoruces like number of CPU and RAM</li>
 			<li>Always up to date with best practices, including most of the stuff we discussed so far!</li>
 		</ul>
 	</div></section>
