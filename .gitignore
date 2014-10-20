@@ -1,5 +1,6 @@
 bower_components
 node_modules
+ribbon/node_modules
 npm-debug.log
 
 styles/.sass-cache
