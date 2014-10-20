@@ -2,6 +2,7 @@
 	1. Font-Awesome Support
 	2. PT Sans to Open Sans or some other font
 	3. Min font size should be 24px
+	4. use ee to install nginx only
 -->
 <!DOCTYPE HTML>
 <html lang="en">
@@ -33,7 +34,7 @@
 		.slide:after {background: url(pictures/ribbon.svg) no-repeat}
 
 		.full .progress div {border-bottom-color: #00a800}
-
+		section.bigger pre code{font-size: 120%}
 		/*00a800}*/
 /*
 
@@ -379,13 +380,10 @@ location = <mark>/wp-login.php</mark> {
 		<li>Always up to date with best practices, including most of the stuff we discussed so far</li>
 	</div></section>
 
-	<section class="slide"><div>
+	<section class="slide bigger"><div>
 		<h2>Getting Started!</h2>
 <pre><code class="bash">#install easy-engine
 wget -qO ee rt.cx/ee &amp;&amp; sudo bash ee
-
-#install nginx, php, mysql, postfix
-ee stack install
 
 #install WordPress on example.com
 ee site create example.com --wpfc
@@ -425,7 +423,5 @@ ee site create example.com --wpfc --wpsubdom
 	<div class="progress"><div></div></div>
 	<script src="bower_components/shower-core/shower.min.js"></script>
 	<script src="http://localhost:35729/livereload.js"></script>
-	<!-- Copyright © 2013 Yours Truly, Famous Inc. -->
-	<!-- Photos by John Carey, fiftyfootshadows.net -->
 </body>
 </html>
