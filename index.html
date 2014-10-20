@@ -12,70 +12,25 @@
 	<meta name="viewport" content="width=792, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<link rel="stylesheet" href="ribbon/styles/screen.css">
+	<link rel="stylesheet" href="main.css">
 	<link rel="stylesheet" href="bower_components/highlightjs/styles/sunburst.css">
 	<script src="bower_components/highlightjs/highlight.pack.js"></script>
+	<!-- Comment following line in case syntax highlighting creates problem -->
 	<script>hljs.initHighlightingOnLoad();</script>
-
-	<style type="text/css">
-		/* common classes */
-		.list .slide {margin: 0 -640px -340px 0; transform: scale(0.4)}
-
-		/* common classes */
-		.aligncenter {text-align: center;}
-		.alignleft {float: left; }
-		.alignright {float: right;}
-		.clear {float: none; clear: both;}
-
-		/* fixes */
-		.slide.no-ribbon:after {visibility: hidden;}
-
-		/* typography */
-		.slide.shout h2{font-size: 60px}
-		.shout p {position: absolute; top: 60%; left: 0; width: 100%; text-align: center; color: #777}
-
-		/*blockquote {font-size: 35px;} */
-		.slide {font-size: 30px;}
-		.slide li{padding-bottom: 30px}
-
-		.slide pre code {font-size: 30px; }
-
-		.slide pre br {display: block; margin: 25px 0;content: " ";}
-
-		section.bigger pre code{font-size: 120%}
-
-		/* colors */
-		.slide:after {background: url(pictures/ribbon.svg) no-repeat}
-		.full .progress div {border-bottom-color: #00a800}
-
-		/*00a800}*/
-
-		/*figcaption {color: #444}
-		.full .progress {overflow: hidden;}*/
-	</style>
 </head>
+
 <body class="list">
 	<header class="caption">
 		<h1>WordPress-Nginx Best Practices. With EasyEngine.</h1>
 		<p>by Rahul Bansal (from rtCamp)</p>
 	</header>
 
-	<section class="slide cover" id="cover2"><div>
-			<h2>WordPress-Nginx Best Practices. With EasyEngine.</h2>
-			<p><em> by </em> Rahul Bansal (from rtCamp)</p>
-			<img src="pictures/nginx-conf-logo.png" alt="nginx.conf 2014"/>
-			<style>
-				#cover2  {color: white; }
-				#cover h2{font-size: 40px; }
-			</style>
-	</div></section>
-
 	<section class="slide no-ribbon aligncenter" id="cover"><div>
-			<img src="pictures/nginx-conf-logo.png" alt="nginx.conf 2014"/>
+				<img src="pictures/nginx-conf-logo.png" alt="nginx.conf 2014"/>
 				<h2>WordPress-Nginx Best Practices. With EasyEngine.</h2>
-				<p><em> by </em> Rahul Bansal (from rtCamp)</p>
+				<p>- Rahul Bansal (from rtCamp)</p>
 			<style>
 				#cover img {margin-bottom:40px; }
-				#cover h2{font-size: 40px; }
 			</style>
 	</div></section>
 
@@ -303,8 +258,14 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 
 	<section class="slide"><div>
 		<h2>What if load balancer fails?</h2>
-<li>Configure backend server with Nginx in a way that it can run as standalone server (accessible on port 80).</li><br/>
-<li>Use DNS-based failover to switch traffic from load balancer node to backend server(s). Automate this switch by monitoring health of load-balacer!</li>
+		<blockquote class="aligncenter">
+			Who will guard the guards themselves!
+		</blockquote>
+		<br/>
+		<ul>
+			<li>Configure backend server with Nginx in a way that it can run as standalone server (accessible on port 80).</li>		
+			<li>Use DNS-based failover to switch traffic from load balancer node to backend server(s). Automate this switch by monitoring health of load-balacer!</li>
+		</ul>
 	</div></section>
 
 	<section class="slide shout"><div>
