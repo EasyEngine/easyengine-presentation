@@ -1,6 +1,6 @@
 bower_components
 node_modules
-/npm-debug.log
+npm-debug.log
 
 styles/.sass-cache
 styles/.sass-cache/*
