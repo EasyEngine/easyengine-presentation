@@ -11,9 +11,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=792, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="bower_components/highlightjs/styles/sunburst.css">
 	<link rel="stylesheet" href="ribbon/styles/screen.css">
 	<link rel="stylesheet" href="main.css">
-	<link rel="stylesheet" href="bower_components/highlightjs/styles/sunburst.css">
+
 	<script src="bower_components/highlightjs/highlight.pack.js"></script>
 	<!-- Comment following line in case syntax highlighting creates problem -->
 	<script>hljs.initHighlightingOnLoad();</script>
@@ -258,12 +261,13 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 
 	<section class="slide"><div>
 		<h2>What if load balancer fails?</h2>
-		<blockquote class="aligncenter">
+		<br/>
+		<blockquote >
 			Who will guard the guards themselves!
 		</blockquote>
 		<br/>
 		<ul>
-			<li>Configure backend server with Nginx in a way that it can run as standalone server (accessible on port 80).</li>		
+			<li>Configure backend server with Nginx in a way that it can run as standalone server (accessible on port 80).</li>
 			<li>Use DNS-based failover to switch traffic from load balancer node to backend server(s). Automate this switch by monitoring health of load-balacer!</li>
 		</ul>
 	</div></section>

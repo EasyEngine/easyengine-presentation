@@ -1,0 +1,24 @@
+{
+  "name": "easyengine-presentation",
+  "version": "0.1",
+  "homepage": "https://github.com/rtCamp/easyengine-presentation",
+  "authors": [
+    "Rahul Bansal <rahul.bansal@rtcamp.com>"
+  ],
+  "description": "EasyEngine Slides powered by Shower",
+  "main": "index.html",
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "highlightjs": "~8.0.0",
+    "shower-core": "~1.0.7",
+    "shower-ribbon": "~1.0.11",
+    "font-awesome": "~4.2.0"
+  }
+}
