@@ -1,7 +1,5 @@
-bower_components
-node_modules
-ribbon/node_modules
+bower_components/
+node_modules/
 npm-debug.log
 
-styles/.sass-cache
-styles/.sass-cache/*
+.sass-cache
