@@ -17,32 +17,40 @@
 	<script>hljs.initHighlightingOnLoad();</script>
 
 	<style type="text/css">
+		/* common classes */
 		.list .slide {margin: 0 -640px -340px 0; transform: scale(0.4)}
+
+		/* common classes */
 		.aligncenter {text-align: center;}
 		.alignleft {float: left; }
 		.alignright {float: right;}
 		.clear {float: none; clear: both;}
+
+		/* fixes */
 		.slide.no-ribbon:after {visibility: hidden;}
+
+		/* typography */
 		.slide.shout h2{font-size: 60px}
 		.shout p {position: absolute; top: 60%; left: 0; width: 100%; text-align: center; color: #777}
-		blockquote {font-size: 35px;}
 
-		.slide {font-size: 35px; }
+		/*blockquote {font-size: 35px;} */
+		.slide {font-size: 30px;}
+		.slide li{padding-bottom: 30px}
+
 		.slide pre code {font-size: 30px; }
-		/*.slide pre code.smaller {font-size: 20px; white-space: pre }*/
+
 		.slide pre br {display: block; margin: 25px 0;content: " ";}
-		.slide:after {background: url(pictures/ribbon.svg) no-repeat}
 
-		.full .progress div {border-bottom-color: #00a800}
 		section.bigger pre code{font-size: 120%}
+
+		/* colors */
+		.slide:after {background: url(pictures/ribbon.svg) no-repeat}
+		.full .progress div {border-bottom-color: #00a800}
+
 		/*00a800}*/
-/*
 
-		figcaption {color: #444}
-		.full .progress {overflow: hidden;}
-
-		.slide {background: #fff url(pictures/wordcamp-mumbai-footer.jpg) no-repeat right 531px;}
-		.small {font-size: 22px}*/
+		/*figcaption {color: #444}
+		.full .progress {overflow: hidden;}*/
 	</style>
 </head>
 <body class="list">
@@ -63,12 +71,12 @@
 
 	<section class="slide no-ribbon aligncenter" id="cover"><div>
 			<img src="pictures/nginx-conf-logo.png" alt="nginx.conf 2014"/>
-			<h2>WordPress-Nginx Best Practices. With EasyEngine.</h2>
-			<p><em> by </em> Rahul Bansal (from rtCamp)</p>
-		<style>
-			#cover img {margin-bottom:40px; }
-			#cover h2{font-size: 40px; }
-		</style>
+				<h2>WordPress-Nginx Best Practices. With EasyEngine.</h2>
+				<p><em> by </em> Rahul Bansal (from rtCamp)</p>
+			<style>
+				#cover img {margin-bottom:40px; }
+				#cover h2{font-size: 40px; }
+			</style>
 	</div></section>
 
 	<section class="slide shout"><div>
@@ -386,8 +394,11 @@ location = <mark>/wp-login.php</mark> {
 
 	<section class="slide"><div>
 		<h2>What is EasyEngine?</h2>
-		<li>A script to setup and manage multiple wordpress sites with NGINX web server</li>
-		<li>Always up to date with best practices, including most of the stuff we discussed so far</li>
+		<ul>
+			<li>Command-line script to manage multiple WordPress sites with Nginx</li>
+			<li>Automatically install latest nginx, php, mysql, and other packages with commonly used modules</li>
+			<li>Always up to date with best practices, including most of the stuff we discussed so far!</li>
+		</ul>
 	</div></section>
 
 	<section class="slide bigger"><div>
