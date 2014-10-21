@@ -1,5 +1,5 @@
 /* common classes */
-.list .slide {margin: 0 -640px -340px 0; transform: scale(0.4)}
+/*.list .slide {margin: 0 -640px -340px 0; transform: scale(0.4)}*/
 
 /* common classes */
 .aligncenter {text-align: center;}
@@ -23,9 +23,12 @@ section.bigger pre code{font-size: 120%}
 
 /* colors */
 .slide:after {background: url(pictures/ribbon.svg) no-repeat}
-.full .progress div {border-bottom-color: #00a800}
+.full .progress div {border-bottom-color: #006600}
 
 /*00a800}*/
 
 /*figcaption {color: #444}
 .full .progress {overflow: hidden;}*/
+
+/*syntax highlighter fix*/
+/*pre code.hljs  span.hljs-title {color: #843819 !important; }*/

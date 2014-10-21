@@ -1,7 +1,6 @@
 <!-- TODO
 	1. Font-Awesome Support
 	2. PT Sans to Open Sans or some other font
-	3. Min font size should be 24px
 	4. use ee to install nginx only
 -->
 <!DOCTYPE HTML>
@@ -13,7 +12,7 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
 	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="bower_components/highlightjs/styles/sunburst.css">
+	<link rel="stylesheet" href="bower_components/highlightjs/styles/idea.css">
 	<link rel="stylesheet" href="ribbon/styles/screen.css">
 	<link rel="stylesheet" href="main.css">
 
@@ -106,13 +105,13 @@
 	<section class="slide"><div>
 		<h2>Cache conditions</h2>
 		<pre>
-<code class="nginx">if ($request_uri ~* "<mark class="important">/store/</mark>|/wp-admin/|...") {
+<code class="nginx">if ($request_uri ~* "<mark>/store/</mark>|/wp-admin/|...") {
 	set $skip_cache 1;	}   </code>
 <br/>
-<code class="nginx">if ($http_cookie ~* "comment_author|<mark class="important">test_cookie</mark>|...") {
+<code class="nginx">if ($http_cookie ~* "comment_author|<mark>test_cookie</mark>|...") {
 	set $skip_cache 1; 	}</code>
 <br/>
-<code class="nginx">if ($remote_addr ~* "<mark class="important">1.2.3.4</mark>") {
+<code class="nginx">if ($remote_addr ~* "<mark>1.2.3.4</mark>") {
 	set $skip_cache 1;	}   </code>
 		</pre>
 	</div></section>
@@ -132,7 +131,8 @@
 	<section class="slide"><div>
 		<h2>Caching multiple versions of a page</h2>
 		<h3>Cookie Example</h3>
-		<pre><code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri<mark>$cookie_country</mark>";</code>
+		<pre><code class="nginx">fastcgi_cache_key
+	 	"$scheme$request_method$host$request_uri<mark>$cookie_country</mark>";</code>
 		</pre>
 		<div class="next">
 			<h3>User-Agent Example</h3>
@@ -188,6 +188,19 @@
 	</div></section>
 
 	<section class="slide"><div>
+		<h2>Global Config</h2>
+		<pre><code class="nginx"># Turning the module on and off
+pagespeed on;
+
+# Disable All PageSpeed Filters by default
+pagespeed RewriteLevel PassThrough;
+
+# Need to exist and writable by nginx.
+pagespeed FileCachePath /var/ngx_pagespeed_cache;
+	</code></pre>
+	</div></section>
+
+	<section class="slide"><div>
 		<h2>Site-specific Filters</h2>
 		<pre><code class="nginx">#For CSS files
 pagespeed EnableFilters combine_css,rewrite_css;
@@ -198,19 +211,6 @@ pagespeed EnableFilters combine_javascript,rewrite_javascript;
 pagespeed EnableFilters lazyload_images;
 pagespeed EnableFilters rewrite_images;
 pagespeed EnableFilters convert_jpeg_to_progressive;
-</code></pre>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Global Config</h2>
-		<pre><code class="nginx"># Turning the module on and off
-pagespeed on;
-
-# Disable All PageSpeed Filters by default
-pagespeed RewriteLevel PassThrough;
-
-# Need to exist and writable by nginx.
-pagespeed FileCachePath /var/ngx_pagespeed_cache;
 </code></pre>
 	</div></section>
 
@@ -264,7 +264,7 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 		<h2>What if load balancer fails?</h2>
 		<br/>
 		<blockquote >
-			Who will guard the guards themselves!
+			Who will guard the guards themselves!</span>
 		</blockquote>
 		<br/>
 		<ul>
@@ -273,18 +273,14 @@ pagespeed FileCachePath /var/ngx_pagespeed_cache;
 		</ul>
 	</div></section>
 
-	<section class="slide shout"><div>
-		<h2>#5. Upstream + HHVM for PHP</h2>
-		<p>Speed for logged in users</p>
-	</div></section>
-
 	<section class="slide"><div>
 		<h2>HHVM with PHP-FPM fallback</h2>
+		<p>Speed for logged in users</p>
 <pre><code class="nginx">upstream <mark class="important">php</mark> {
 	server 127.0.0.1:8000;			#hhvm
 	server 127.0.0.1:9000 <mark>backup</mark>;	#php-fpm
 }</code></pre>
-<p><em>hhvm and php-fpm started on same server but different ports</em></p>
+<p><em>hhvm and php-fpm started on same server but on different ports</em></p>
 	</div></section>
 
 	<section class="slide shout"><div>
@@ -362,8 +358,8 @@ location = <mark>/wp-login.php</mark> {
 		<h2>What is EasyEngine?</h2>
 		<ul>
 			<li>Command-line script to manage multiple WordPress sites with Nginx</li>
-			<li>Automatically install latest nginx, php, mysql, and other packages with commonly used modules.</li>
-			<li>Automatically tweak each package depending on system resoruces like number of CPU and RAM</li>
+			<li>Automatically install latest nginx, php, mysql, and other packages with commonly used modules and tweak config based on CPU cores and RAM</li>
+			<li>Installs and configures plenty of web-based tools system admins</li>
 			<li>Always up to date with best practices, including most of the stuff we discussed so far!</li>
 		</ul>
 	</div></section>
@@ -388,6 +384,50 @@ ee site create example.com --wpfc --wpsubdom
 </code></pre>
 	</div></section>
 
+	<section class="slide" id="table"><div>
+		<h2>Create "12" Types of WordPress Sites!</h2>
+		<table>
+		<tr>
+			<th scope="col"><!-- What you want? --></th>
+			<th>Single Site</th>
+			<th>Multisite with Subdir</th>
+			<th>Multisite with Subdom</th>
+		</tr>
+		<tr>
+			<th scope="row">Nginx FastCGI Cache</th>
+			<td><code>--wpfc</code></td>
+			<td><code>--wpfc --wpsubdir</code></td>
+			<td><code>--wpfc --wpsubdom</code></td>
+		</tr>
+		<tr>
+			<th scope="row">WP Super Cache</th>
+			<td><code>--wpsc </code></td>
+			<td><code>--wpsc --wpsubdir</code></td>
+			<td><code>--wpsc --wpsubdom</code></td>
+		</tr>
+		<tr>
+			<th scope="row">W3 Total Cache</th>
+			<td><code>--w3tc </code></td>
+			<td><code>--w3tc --wpsubdir</code></td>
+			<td><code>--w3tc --wpsubdom</code></td>
+		</tr>
+		<tr>
+			<th scope="row">NO Cache</th>
+			<td><code>--wp</code></td>
+			<td><code>--wpsubdir</code></td>
+			<td><code>--wpsubdom</code></td>
+		</tr>
+		</table>
+		<h3 class="aligncenter"><b>Change site type on the fly!</b></h3><br/>
+		<pre><code class="no-highlight aligncenter">ee site update example.com --wp --wpfc</code></pre>
+		<style type="text/css">
+			#table code {background: #f1f1f1}
+			#table {font-size: 20px}
+			#table td {padding: 10px}
+			#table th {font-weight: 400}
+		</style>
+	</div></section>
+
 	<section class="slide shout"><div>
 		<h2>EasyEngine Demo!</h2>
 		<p>It's showtime!</p>
@@ -395,17 +435,24 @@ ee site create example.com --wpfc --wpsubdom
 
 	<section class="slide"><div>
 		<h2>EasyEngine Resources</h2>
-		<ul>
-			<li>Home&nbsp; => <a href="http://rtcamp.com/easyengine">http://rtcamp.com/easyengine</a></li>
-			<li>Github => <a href="http://github.com/rtCamp/easyengine">http://github.com/rtCamp/easyengine</a></li>
-			<li>Forum  => <a href="http://community.rtcamp.com/category/easyengine/">http://community.rtcamp.com/category/easyengine/</a></li>
-		</ul>
+		<span class="fa fa-fw fa-home"></span>
+			<a href="http://rtcamp.com/easyengine">http://rtcamp.com/easyengine</a>
+		<br/>
+		<span class="fa fa-fw fa-github"></span>
+<a href="http://community.rtcamp.com/category/easyengine/">http://community.rtcamp.com/category/easyengine/</a>
+		<br/>
+		<span class="fa fa-fw fa-group"></span>
+		 	<a href="http://github.com/rtCamp/easyengine">http://github.com/rtCamp/easyengine</a>
+		<br/>
+		<span class="fa fa-fw fa-twitter"></span>
+		 	<a href="http://twitter.com/easyengine">@easyengine</a>
+		<br/>
 	</div></section>
 
 
 	<section class="slide shout"><div>
-		<h2>Thanks! :-)</h2>
-		<p>mailto: <a href="mailto:rahul.bansal@rtcamp.com">rahul.bansal@rtcamp.com</a></p>
+		<h2>Thanks! <span class="fa fa-smile-o"></span></h2>
+		<p>mailto: <a href="mailto:rahul.bansal@rtcamp.com">rahul@rtcamp.com</a></p>
 	</div></section>
 
 	<div class="progress"><div></div></div>
