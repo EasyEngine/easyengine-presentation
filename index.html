@@ -28,16 +28,29 @@
 	</header>
 
 	<section class="slide no-ribbon aligncenter" id="cover"><div>
-				<img src="pictures/nginx-conf-logo.png" alt="nginx.conf 2014"/>
+				<img src="pictures/nginx-conf-logo-big.png" alt="nginx.conf 2014"/>
 				<h2>WordPress-Nginx Best Practices. With EasyEngine.</h2>
 				<p>- Rahul Bansal (from rtCamp)</p>
+				<img src="pictures/rtCamp-logo-128x128-blue.png" height="80px" alt="rtCamp logo">
 			<style>
 				#cover img {margin-bottom:40px; }
 			</style>
 	</div></section>
 
+	<section class="slide"><div>
+		<h2>About me!</h2>
+		<div class="aligncenter">
+			<p>I am, <mark>Rahul Bansal</mark>, from <mark>rtCamp</mark> India!</p>
+			<p>Devleoping on WordPress from 2007!</p>
+			<p>Using Nginx from 2009!</p>
+			<p>Solving on <mark>WordPress-Nginx</mark> problems from 2010!</p>
+			<p>Released EasyEngine in 2013!</p>
+		</div>
+	</div></section>
+
 	<section class="slide shout"><div>
 		<h2>WordPress-NGINX Best Practices</h2>
+		<p>fastcgi-cache, pagespeed, upstream/hhvm &amp; more</p>
 	</div></section>
 
 	<section class="slide"><div>
@@ -56,8 +69,8 @@
 	<section class="slide"><div>
 		<h2>Purpose</h2>
 		<ul>
-			<li>To serve cached content to non-logged in users</li><br/>
-			<li>Should be used instead full-page-cache WordPress plugin</li>
+			<li>Serve cached content to non-logged in users. This is to reduce load on backend PHP-MySQL.</li><br/>
+			<li>Should be used instead full-page-cache WordPress plugin. WordPress is already doing a lot!</li>
 		</ul>
 	</div></section>
 
@@ -75,7 +88,7 @@
 		</pre>
 	</div></section>
 	<section class="slide"><div>
-		<h2>Site Config</h2>
+		<h2>Site/Virtual Host Config</h2>
 		<pre>
 <code class="nginx">location ~ \.php$ {</code>
 <code class="nginx">	try_files $uri =404; fastcgi_pass backend;</code>
@@ -92,9 +105,11 @@
 	<section class="slide"><div>
 		<h2>Cache conditions</h2>
 		<pre>
-<code class="nginx">set $skip_cache 0;</code>
-<code class="nginx">if ($request_method = POST) { set $skip_cache 1; }</code>
-<code class="nginx">if ($query_string != "") { set $skip_cache 1; }
+<code class="nginx">set $skip_cache <mark>0</mark>;</code>
+<code class="nginx">if ($request_method = POST ) {
+	set $skip_cache 1; }</code>
+<code class="nginx">if ($query_string != "" ) {
+	set $skip_cache 1; }</code>
 <code class="nginx">if ($request_uri ~* "/wp-admin|index.php|wp-.*.php" ) {
 	set $skip_cache 1;}</code>
 <code class="nginx ">if ($http_cookie ~* "comment_author|wordpress_*" ) {
@@ -105,26 +120,23 @@
 	<section class="slide"><div>
 		<h2>Cache conditions</h2>
 		<pre>
-<code class="nginx">if ($request_uri ~* "<mark>/store/</mark>|/wp-admin/|...") {
+<code class="nginx">if ($request_uri ~* "<mark>/store/</mark>|/wp-admin/|..." ) {
 	set $skip_cache 1;	}   </code>
 <br/>
-<code class="nginx">if ($http_cookie ~* "comment_author|<mark>test_cookie</mark>|...") {
+<code class="nginx">if ($http_cookie ~* "comment_author|<mark>test_cookie</mark>|..." ) {
 	set $skip_cache 1; 	}</code>
 <br/>
-<code class="nginx">if ($remote_addr ~* "<mark>1.2.3.4</mark>") {
+<code class="nginx">if ($remote_addr ~* "<mark>1.2.3.4</mark>" ) {
 	set $skip_cache 1;	}   </code>
 		</pre>
 	</div></section>
 
 	<section class="slide"><div>
 		<h2>Caching search result pages</h2>
-		<p>Remember? <code>http://example.com/?s=hello</code></p>
+		<p><span class="fa fa-link"></span> <code>http://example.com/?s=hello</code></p>
 		<pre>
-<code class="nginx">if ($query_string != "") {
-	set $skip_cache 1; }   </code>
-<br/>
-<code class="nginx">if ($arg_s != "") {
-	set $skip_cache 0; }</code>
+<code class="nginx">if ($query_string 	!= "") 	{ set $skip_cache 1; }   </code>
+<code class="nginx">if ($arg_s 			!= "") 	{ set $skip_cache 0; }</code>
 		</pre>
 	</div></section>
 
@@ -134,46 +146,18 @@
 		<pre><code class="nginx">fastcgi_cache_key
 	 	"$scheme$request_method$host$request_uri<mark>$cookie_country</mark>";</code>
 		</pre>
-		<div class="next">
 			<h3>User-Agent Example</h3>
 			<pre><code class="nginx">set $mobile no;</code>
 	<code class="nginx">if ($http_user_agent ~* "iphone|android|...") {
 		set $mobile yes;}</code>
-	<code class="nginx">fastcgi_cache_key "$scheme$request_method$host$request_uri<mark>$mobile</mark>";</code>
+	<code class="nginx">fastcgi_cache_key
+		"$scheme$request_method$host$request_uri<mark>$mobile</mark>";</code>
 			</pre>
-		</div>
+
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>#2. NGINX substitution module</h2>
-		<p>CDN &amp; SSL Warning fix</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>CDN (Origin Pull)</h2>
-		<pre><code class="no-highlight">	 example.com/wp-content/uploads/hello.jpg
-					   &#x25BC;
-<mark class="important">cdn</mark>.example.com/wp-content/uploads/hello.jpg</code></pre>
-		<hr/>
-		<pre>
-<code class="nginx">sub_filter "example.com/wp-content/uploads/"
-			 "cdn.example.com/wp-content/uploads/";</code>
-<code class="nginx">sub_filter_once off;</code>
-		</pre>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>SSL - mixed content warning fix</h2>
-		<pre>
-<code class="nginx">sub_filter "http://example.com/wp-content/"
-	 "https://example.com/wp-content/";</code>
-<code class="nginx">sub_filter_last_modified on;</code>
-<code class="nginx">sub_filter_once off;</code>
-		</pre>
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>#3. pagespeed module</h2>
+		<h2>#2. pagespeed module</h2>
 		<p>Reduce page-load time by huge margin!</p>
 	</div></section>
 
@@ -215,7 +199,7 @@ pagespeed EnableFilters convert_jpeg_to_progressive;
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>#4. Upstream Module</h2>
+		<h2>#3. Upstream Module</h2>
 		<p>Load Balancer/Failover</p>
 	</div></section>
 
@@ -289,6 +273,30 @@ pagespeed EnableFilters convert_jpeg_to_progressive;
 	</div></section>
 
 	<section class="slide"><div>
+		<h2>CDN with NGINX substitution module</h2>
+		<pre><code class="no-highlight">	 example.com/wp-content/uploads/hello.jpg
+					&#x25BC;
+	<mark class="important">cdn</mark>.example.com/wp-content/uploads/hello.jpg</code></pre>
+		<hr/>
+		<pre>
+	<code class="nginx">sub_filter "example.com/wp-content/uploads/"
+			"cdn.example.com/wp-content/uploads/";</code>
+	<code class="nginx">sub_filter_last_modified on;</code>
+	<code class="nginx">sub_filter_once off;</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>SSL - mixed content warning fix w/ substitution mod</h2>
+		<pre>
+	<code class="nginx">sub_filter "http://example.com/wp-content/"
+	"https://example.com/wp-content/";</code>
+	<code class="nginx">sub_filter_last_modified on;</code>
+	<code class="nginx">sub_filter_once off;</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
 		<h2>SSL and spdy</h2>
 		<pre><code class="nginx">#enable SSL cache
 ssl_session_cache   shared:SSL:20m;
@@ -350,8 +358,19 @@ location = <mark>/wp-login.php</mark> {
 		</table>
 	</div></section>
 
+	<section class="slide"><div>
+		<h2>WordPress-Nginx Resources</h2>
+		<ul>
+			<li><a hreaf="https://rtcamp.com/wordpress-nginx/tutorials/">https://rtcamp.com/wordpress-nginx/tutorials/</a></li>
+			<li><a hreaf="https://rtcamp.com/tutorials/nginx">https://rtcamp.com/tutorials/nginx</a></li>
+			<li><a hreaf="https://rtcamp.com/tutorials/linux/sysctl-conf/">https://rtcamp.com/tutorials/linux/sysctl-conf/</a></li>
+			<li><a hreaf="http://community.rtcamp.com/category/wordpress-nginx">http://community.rtcamp.com/category/wordpress-nginx</a></li>
+		</ul>
+	</div></section>
+
 	<section class="slide shout"><div>
 		<h2>EasyEngine</h2>
+		<p>Making WordPress-Nginx Easy!</p>
 	</div></section>
 
 	<section class="slide"><div>
@@ -385,7 +404,7 @@ ee site create example.com --wpfc --wpsubdom
 	</div></section>
 
 	<section class="slide" id="table"><div>
-		<h2>Create "12" Types of WordPress Sites!</h2>
+		<h2>Create "12" Types of WordPress Sites</h2>
 		<table>
 		<tr>
 			<th scope="col"><!-- What you want? --></th>

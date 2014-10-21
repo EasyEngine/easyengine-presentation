@@ -14,16 +14,13 @@
 .slide.shout h2{font-size: 60px}
 .shout p {position: absolute; top: 60%; left: 0; width: 100%; text-align: center; color: #777}
 
-/*blockquote {font-size: 35px;} */
-.slide li{padding-bottom: 35px}
-
 .slide pre br {display: block; margin: 25px 0;content: " ";}
 
 section.bigger pre code{font-size: 120%}
 
 /* colors */
 .slide:after {background: url(pictures/ribbon.svg) no-repeat}
-.full .progress div {border-bottom-color: #006600}
+.full .progress div {border-bottom-color: #2d65a0; border-top-width:20px}
 
 /*00a800}*/
 
