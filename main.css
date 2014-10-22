@@ -20,7 +20,10 @@ section.bigger pre code{font-size: 120%}
 
 /* colors */
 .slide:after {background: url(pictures/ribbon.svg) no-repeat}
-.full .progress div {border-bottom-color: #2d65a0; border-top-width:20px}
+.full .progress div {border-bottom-color: #2d65a0; }
+
+/*.full .progress {height: 25px}
+.full .progress div{top: -20px; border-top-width: 25px}*/
 
 /*00a800}*/
 
