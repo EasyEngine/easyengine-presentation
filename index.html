@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>EasyEngine = Easy ( WordPress + Nginx )</title>
+	<title>Debugging WordPress Performance using EasyEngine</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=792, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -18,11 +18,11 @@
 		blockquote {color: #555}
 		figcaption {color: #444}
 		/*.slide code {background: #f1f1f1}*/
-		.full .progress {overflow: hidden;}
+		.full .progress {overflow: hidden; color: #2E609B}
 
-		.slide {background: #fff url(pictures/wordcamp-mumbai-footer.jpg) no-repeat right 531px;}
+		.slide {background: #fff url(pictures/wcmum-logo-footer.png) no-repeat right 531px;}
 		.small {font-size: 22px}
-		
+		.slide mark{background: #FAFAA2}
 	</style>
 </head>
 <body class="list">
@@ -31,26 +31,16 @@
 		<p>by rtCamp</p>
 	</header>
 	<section class="slide no-ribbon" id="cover"><div>
-		<img id="wclogo" class="alignright" src="pictures/wordcamp-mumbai-big.jpg" alt="WordCamp Mumbai 2014">
-		<p class="aligncenter">		
+		<img id="wclogo" class="alignright" src="pictures/wcmum-logo-big.png" alt="WordCamp Mumbai 2014">
+		<p class="aligncenter">
 			<img id="eelogo" width="400px" src="pictures/easyengine.png" alt="EasyEngine">
 			<br/>
-			<span>Easy ( WordPress + Nginx )</span>
+			<b>Debugging WordPress Performance Using EasyEngine</b>
 			<br/>
-			<span><em> by </em> rtCamp</span>
-			<br/>
-			<span class="small">Mitesh Shah &amp; Rahul Bansal</span>
+			<span><em> by </em> Rahul Bansal (<em> from </em>rtCamp)</span>
 		</p>
-		<!-- <h2>EasyEngine</h2> -->
-<!-- 		<figure class="clear">
-			<blockquote>
-				<p>Progress doesn't come from early risers — progress is made by lazy men looking for easier ways to do things.
-				</p>
-			</blockquote>
-			<figcaption>Robert A. Heinlein</figcaption>
-		</figure>		
- -->	
-		<style>	
+
+		<style>
 			#cover img#wclogo {position: absolute; max-height: 200px; max-width: 200px; left: 835px; top: 0px;  }
 			#cover img#eelogo {margin-top: 40px }
 			#cover h2{font-size: 80px; text-align: center;}
@@ -59,370 +49,171 @@
 	</div></section>
 	<section class="slide"><div>
 		<h2>Table of Contents</h2>
-		<ol>		
-			<li>Introduction</li>
-			<li>Motivation</li>
-			<li>Features
-			<li>Inside EasyEngine</li>						
-			<li>Roadmap</li>						
-			<li>Getting Involved</li>
-			<li>Demo</li>
-		</ol>
-	</div></section>	
-	<section class="slide shout"><div>
-		<h2>Introduction</h2>		
-		<p>Hello World!</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>EasyEngine is...</h2>		
-		<!-- <img width="275px" src="pictures/cli.jpg" class="alignright">		 -->
-		<ul>
-			<li>a command-line tool</li>
-			<li>coded in shell scripting language</li>
-			<li>"control-panel" for geeks/developers</li>
-			<li>made for WordPress</li>			
-			<li>GPL like WordPress</li>			
-		</ul>			
-	</div></section>
-
-<!-- 	<section class="slide"><div>
-		<h2>Created to...</h2>		
-		<img width="275px" src="pictures/cli.jpg" class="alignright">		
-		<ul>
-			<li>Save money</li>
-			<li>Save time</li>
-			<li>More money <em>(because time is money!)</em> </li>			
-		</ul>			
-	</div></section> -->
-
-	<section class="slide shout"><div>
-		<h2>Motivation</h2>
-		<p>What annoyed lazy people!</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>cPanel/Plesk  ?#%!@</h2>
-		<!-- <img width="250px" src="pictures/broken-engine.jpg" class="alignright"> -->
-		<ul>
-			<li>Bloated/Resource-Hog</li>
-			<li>TOO many unwanted features</li>
-			<li>NOT made 4 WordPress</li>
-		</ul>		
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Automation</h2>
-		<!-- <img width="250px" src="pictures/learner-sign.jpg" class="alignright"> -->
-		<ul>
-			<li>Performance Optimization</li>
-			<li>Debugging</li>
-			<li>Maintainance</li>
-		</ul>						
-		<figure class="clear">
-			<blockquote>
-				<p>Anything that can go wrong — will go wrong!</p>
-			</blockquote>
-			<figcaption>Murphy's Law</figcaption>
-		</figure>
+		<ol>
+			<li>Why Debugging is Needed?</li>
+			<li>Actual Debugging Process</li>
+			<li>Using EasyEngine for Debugging</li>
+		<ol>
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>Installation</h2>
-		<p>Welcome to the Easy world!</p>
+		<h2>Part-1</h2>
+		<p>Why Debugging is Needed?</p>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>Inside Shell...</h2>
-		<!-- <img width="225px" src="pictures/cli.jpg" class="alignright">				 -->
-		<pre>
-			<code>curl -sL rt.cx/ee | sudo bash</code>
-			<code>ee system install</code>
-			<code>ee site create example.com --wp</code>
-		</pre>
-		<br/>
-		<figure class="clear">
-			<blockquote>
-				<p>Simplicity is the ultimate sophistication!</p>
-			</blockquote>
-			<figcaption>William Gaddis</figcaption>
-		</figure>		
-	</div></section>
-
-	<section class="slide" id="table"><div>
-		<h2>Create "12" Types of WordPress Sites!</h2>
-		<table>		
-		<tr>
-			<th scope="col"><!-- What you want? --></th>
-			<th>Single Site</th>
-			<th>Multisite with Subdir</th>
-			<th>Multisite with Subdom</th>
-		</tr>
-		<tr>
-			<th scope="row">NO Cache</th>
-			<td><code>--wp</code></td>
-			<td><code>--wpsubdir</code></td>
-			<td><code>--wpsubdom</code></td>
-		</tr>
-		<tr>
-			<th scope="row">WP Super Cache</th>
-			<td><code>--wpsc </code></td>
-			<td><code>--wpsc --wpsubdir</code></td>
-			<td><code>--wpsc --wpsubdom</code></td>
-		</tr>
-		<tr>
-			<th scope="row">W3 Total Cache</th>
-			<td><code>--w3tc </code></td>
-			<td><code>--w3tc --wpsubdir</code></td>
-			<td><code>--w3tc --wpsubdom</code></td>
-		</tr>
-		<tr>
-			<th scope="row">Nginx FastCGI Cache</th>
-			<td><code>--wpfc </code></td>
-			<td><code>--wpfc --wpsubdir</code></td>
-			<td><code>--wpfc --wpsubdom</code></td>
-		</tr>
-		</table>		
-		<style type="text/css">
-			#table code {background: #f1f1f1}
-			#table {font-size: 20px}
-			#table td {padding: 10px}
-			#table th {font-weight: 400}
-		</style>
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>Features/Usage</h2>		
-		<p>Driver's manual</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>A Site includes... </h2>
-		<!-- <img width="250px" src="pictures/combo-meal.jpg" class="alignright"> -->
+		<h2>Story so far</h2>
 		<ul>
-			<li>PHP's Zend-Opcache</li>		
-			<li>Memcache for Object-Cache and DB-Cache</li>
-			<li>Full Page-Cache</li>
-			<li>Separate access and error logs</li>
-		</ul>						
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Site management...</h2>
-		<ul>
-			<li>Enable &nbsp;<code>ee site enable example.com</code></li>
-			<li>Disable <code>ee site disable example.com</code></li>
-			<li>Delete &nbsp;<code>ee site delete example.com</code></li>			
-			<li>Info &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ee site info example.com</code></li>			
-		</ul>							
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Debugging...</h2>
-		<ul>
-			<li>Debug system&nbsp;&nbsp;<code>ee debug</code></li>
-			<li>Debug site&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ee debug example.com</code></li>
-			<li>Rewrites only&nbsp;&nbsp;<code>ee debug example.com --rewrite</code></li>		
-			<li>Interactive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ee debug example.com -i</code></li>				
-		</ul>							
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Easy to learn...</h2>
-		<!-- <p  class="aligncenter"><img width="250px" src="pictures/ee-help.jpg" /></p> -->
-		<ul>
-			<li>Built-in help&nbsp;&nbsp;<code>ee help</code></li>
-			<li>Man pages&nbsp;&nbsp;&nbsp;&nbsp;<code>man ee</code></li>			
-			<li>Autocompletion for commands and site-name</li>		
-		</ul>							
-		<br/>
-		<figure class="clear">
-			<blockquote>
-				<p>Never memorize something that you can look up!</p>
-			</blockquote>
-			<figcaption>Albert Einstein</figcaption>
-		</figure>		
-		
-	</div></section>
-
-
-
-	<section class="slide shout"><div>
-		<h2>Inside EasyEngine</h2>		
-		<p>Under The Hood</p>
-	</div></section>
-
-<!-- 	<section class="slide cover" id="hood"><div>
-		<h2>Under The Hood</h2>
-		<img src="pictures/hood.jpg" alt="">
-		<style>
-			#hood h2 { color:#FFF; }
-			#hood img { max-height: 100%; max-width: 100%}
-		</style>
-	</div></section> -->
-
-
-	<section class="slide"><div>
-		<h2>How Quick Setup Works!</h2>				
-		<ul>
-			<li>Prefer binary packages instead of compiling</li>
-			<li>Prefer conventions over database</li>
-			<li>Tweaks differnt configs at the time of installation only</li>
+			<li>Full page caching puts zero load on php-mysql backend for cached requests
+				<ul>
+					<li>e.g. Nginx fastcgi cache, w3 total cache's disk cache</li>
+				</ul>
+			</li>
+			<li>For PHP: use Zend Opcache, HHVM</li>
+			<li>For MySQL: there is query cache</li>
 		</ul>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>Conventions</h2>		
-		File structure for example.com site
+		<h2>But...</h2>
 		<ul>
-			<li><code>/var/www/example.com/</code> - All files related to example.com</li>
-			<li><code>/var/www/example.com/htdocs/</code> - Document Root</li>
-			<li><code>/var/www/example.com/logs/</code> - Logs</li>
-			<li><code>/var/www/example.com/wp-config.php</code> - WordPress config</li>
-			<li><code>/etc/nginx/sites-available/example.com</code> - Nginx config</li>			
-		</ul>
-		Database details are used from <code>wp-config.php</code>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Git-based backup</h2>	
-		For all configs		
-		<ul>
-			<li><code>/etc/nginx/</code></li>
-			<li><code>/etc/php5/</code></li>
-			<li><code>/etc/mysql/</code></li>
-			<li><code>/etc/postfix/</code></li>
-		</ul>
-		<span>If something goes wrong...</span><br/>
-		<code>git checkout /path/to/config/file</code>
-	</div></section>
-
-
-	<section class="slide"><div>
-		<h2>Administrative Tools</h2>	
-		Port <code>22222</code> for Web-based tools
-		<ul>
-			<li>MySQL admin tools <em>e.g. phpMyAdmin, adminer </em> </li>
-			<li>Debugging tools <em> e.g. Anemometer, WebGrind </em> </li>
-			<li>Stats viewer for MemCache, PHP's Zend-OpCache</li>			
-		</ul>
-		<span>CLI...</span>
-		<ul>
-			<li><code>ee info</code></li>
-			<li><code>ee site info</code></li>
-		</ul>
-	</div></section>
-
-
-	<section class="slide"><div>
-		<h2>Logging</h2>	
-		<ul>
-			<li>Installation log</li>
-			<li>Site creation &amp; other commands log </li>
-			<li>Error log</li>			
-		</ul>
-		<strong>Log Location:</strong> <code>/var/log/easyengine/</code>
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>Roadmap</h2>		
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Next few milestones...</h2>	
-		<ul>
-			<li>Easy Debugging</li>
-			<li>Automated Monitoring with Email Alerts</li>
-			<li>Mail Server</li>			
-			<li>"Shared" Hosting Support</li>							
-			<li>Easy Migrations/Cloning</li>									
-			<li>Offsite/Peer backups</li>	
+			<li>Not every site can be cached (full-pgae caching)</li>
+				<ul>
+					<li>e.g. membeship sites</li>
+					<li>e.g. e-commerce sites</li>
+				</ul>
+			<li>Even when full-page cache is present...</li>
+			<ul>
+				<li>If site is coded poorly, a missed request will take longer or even fail.</li>
+				<li>There is always <code>/wp-admin</code> which cannot be cached</li>
+			</ul>
 		</ul>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>Beyond CLI...</h2>	
+		<h2>Common issues &amp; workarounds</h2>
 		<ul>
-			<li>REST API</li>
-			<li>Web-based control panel</li>
-			<li>Mobile Apps</li>			
+			<li>Site is running slow or even worse crashing with 5xx server error
+				<ul>
+					<li>Increase php/mysql timeout values</li>
+					<li>Add more CPU cores if needed</li>
+				</ul>
+			</li>
+			<li>PHP error log is showing <code>out of memory</code> error messages
+				<ul>
+					<li>Increase RAM on server</li>
+				</ul>
+			</li>
 		</ul>
 	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>Getting Involved</h2>		
-		<p>For "Easier"Engine!</p>
+		<h2>Part 2</h2>
+		<p>Actual Debugging</p>
 	</div></section>
 
 	<section class="slide"><div>
-		<h2>How you can help?</h2>	
+		<h2>Two things can often go wrong</h2>
 		<ul>
-			<li>Coding</li>
-			<li>Documentation</li>
-			<li>Testing</li>			
-			<li>Help others move</li>			
-			<li>Spread the word</li>						
-			<li>Dontations! ;-)</li>			
+			<li>PHP codes</li>
+			<li>MySQL queries</li>
 		</ul>
 	</div></section>
 
-
 	<section class="slide"><div>
-		<h2>Useful Links</h2>	
+		<h2>Debugging Tools</h2>
 		<ul>
-			<li>Homepage &nbsp;&nbsp; <a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/</a></li>		
-			<li>Docs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/docs/</a></li>		
-			<li>Github &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/rtCamp/easyengine">https://github.com/rtCamp/easyengine</a></li>
-			<li>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/easyengine">https://twitter.com/easyengine</a></li			
+			<li>MySQL: <em>e.g. percona-toolkit, anemometer </em> </li>
+			<li>PHP: <em> e.g. xdebug, webgrind </em> </li>
 		</ul>
-	</div></section>	
+	</div></section>
 
 	<section class="slide shout"><div>
-		<h2>Demo!</h2>		
+		<h2>Demo!</h2>
 		<p>It's showtime!!!</p>
-	</div></section>	
-
-	<section class="slide shout"><div>
-		<h2>Q&A</h2>		
-		<p>Let's talk!</p>
-	</div></section>	
-
-
-	<section class="slide shout"><div>
-		<h2>The End!</h2>		
-		<p>Thanks :-)</p>
-	</div></section>	
-
-<!-- 	<section class="slide shout"><div>
-		<h2>Credits!</h2>		
-		<p>We are greatful...</p>
-	</div></section>	
+	</div></section>
 
 	<section class="slide"><div>
-		<h2>Images Credits</h2>	
+		<h2>What's included in demo</h2>
 		<ul>
-			<li>Homepage &nbsp;&nbsp; <a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/</a></li>		
-			<li>Docs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://rtcamp.com/easyengine/">https://rtcamp.com/easyengine/docs/</a></li>		
-			<li>Github &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/rtCamp/easyengine">https://github.com/rtCamp/easyengine</a></li>
-			<li>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/easyengine">https://twitter.com/easyengine</a></li			
+			<li>Live WordPress site running bad codes</li>
+			<li>Bad codes' impact analysis using debugging tools</li>
+			<li>Fixing bad codes</li>
+			<li>Confirming performance using debugging tools</li>
 		</ul>
-	</div></section>	
-	 -->
-<!-- 	<section class="slide shout" id="SeeMore"><div>
-		<h2><img src="pictures/logo.svg" alt=""> <a href="https://github.com/shower/shower/">See more on GitHub</a></h2>
-		<style>
-			#Picture h2 {
-				color:#FFF;
-				}
-			#SeeMore h2 {
-				font-size:100px
-				}
-			#SeeMore img {
-				width:0.72em;
-				height:0.72em;
-				}
-		</style>
-	</div></section> -->
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>Part 3</h2>
+		<p>Using EasyEngine</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>EasyEngine Debug Command</h2>
+		<p>Start mysql slow query log<br/>
+		<code>ee debug --mysql --import-slow-log</code></p>
+		<p>Start php (xdebug) profiling<br/>
+		<code>ee debug example.com --php</code></p>
+		<p>Start WordPress debug log<br/>
+		<code>ee debug example.com --wp</code></p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Install Web-based Tools Command</h2>
+		<p>Start WordPress debug log<br/>
+		<code>ee stack install --admin</code><br/>
+		<span>installs webgrind, anemometer</p>
+		<p>Start WordPress debug log<br/>
+		<code>ee stack install --admin</code><br/>
+		<span>installs webgrind, anemometer</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>PHP xdebug browser addon</h2>
+		<ul class="aligncenter" style="list-style: decimal;">
+			<li style="list-style: decimal;">Test</li>
+	</ul>
+
+	<img src="pictures/browser-icons/chrome.png" alt="Chrome" height="60px"/></br><a href="https://chrome.google.com/extensions/detail/eadndfjplgieldjbigjakmdgkmoaaaoc"> Chrome</a>
+
+		<table class="aligncenter">
+			<tr>
+				<td><img src="pictures/browser-icons/chrome.png" alt="Chrome" height="60px"/></td>
+				<td></td>
+			</tr>
+				<td><a href="https://chrome.google.com/extensions/detail/eadndfjplgieldjbigjakmdgkmoaaaoc">Chrome</a></td>
+			<tr>
+				<td>Firefox</td>
+				<td>Firefox</td>
+			</tr>
+			<tr>
+				<td>Safari</td>
+				<td>Safari</td>
+			</tr>
+			<tr>
+				<td>Opera</td>
+				<td>Opera</td>
+			</tr>
+		</table>
+
+<!--
+		Firefox, Chrome, Safari and Opera
+		<a href="https://addons.mozilla.org/en-US/firefox/addon/the-easiest-xdebug/">Firefox</a>, , <a href="https://github.com/benmatselby/xdebug-toggler">Safari</a> and <a href="http://addons.opera.com/extensions/details/xdebug-launcher/">Opera</a>
+
+		<p>Start WordPress debug log<br/>
+		<code>ee stack install --admin</code><br/>
+		<span>installs webgrind, anemometer</p> -->
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>Q&A</h2>
+		<p>Let's talk!</p>
+	</div></section>
+
+	<section class="slide shout"><div>
+		<h2>The End!</h2>
+		<p>Thanks :-)</p>
+	</div></section>
 
 	<!-- <p class="badge"><a href="https://github.com/shower/shower">Fork me on Github</a></p> -->
 	<!--
