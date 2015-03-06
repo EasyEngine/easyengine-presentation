@@ -1,243 +1,481 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
-	<title>Debugging WordPress Performance using EasyEngine</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=792, user-scalable=no">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
-	<style type="text/css">
-		.aligncenter {text-align: center;}
-		.alignleft {float: left; }
-		.alignright {float: right;}
-		.clear {float: none; clear: both;}
-
-		.shout p {position: absolute; top: 75%; left: 0; width: 100%; text-align: center;
-						font-size: 50px; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); color: #777}
-		.slide.no-ribbon:after {visibility: hidden;}
-		blockquote {color: #555}
-		figcaption {color: #444}
-		/*.slide code {background: #f1f1f1}*/
-		.full .progress {overflow: hidden; color: #2E609B}
-
-		.slide {background: #fff url(pictures/wcmum-logo-footer.png) no-repeat right 531px;}
-		.small {font-size: 22px}
-		.slide mark{background: #FAFAA2}
-	</style>
+  <title>Debugging WordPress Performance using EasyEngine</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=792, user-scalable=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+  <style type="text/css">
+    .aligncenter {
+      text-align: center;
+    }
+    .alignleft {
+      float: left;
+    }
+    .alignright {
+      float: right;
+    }
+    .clear {
+      float: none;
+      clear: both;
+    }
+    .shout p {
+      position: absolute;
+      top: 75%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 50px;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      color: #777
+    }
+    .slide.no-ribbon:after {
+      visibility: hidden;
+    }
+    .slide.cover .progress {
+      display: none
+    }
+    .slide.cover img {
+      height: 100%;
+      width: 100%
+    }
+    blockquote {
+      color: #555
+    }
+    figcaption {
+      color: #444
+    }
+    .full .progress {
+      overflow: hidden;
+      color: #2E609B
+    }
+    .slide {
+      background: #fff url(pictures/wcmum-logo-footer.png) no-repeat right 555px;
+    }
+    .small {
+      font-size: 22px
+    }
+    .credit {
+      font-size: 14px
+    }
+    .credit a {
+			border-bottom: none;
+    }
+    .credit a:hover {
+			text-decoration: underline;
+    }
+    .slide mark {
+      background: #FAFAA2
+    }
+    .slide ul.icons {
+      text-align: center;
+    }
+    .slide ul.icons li {
+      display: inline-block;
+      margin-right: 80px;
+      text-indent: 0
+    }
+    .slide ul.icons li:before {
+      display: none
+    }
+    .slide .icons a {
+      border-bottom: none !important;
+    }
+    .slide .icons a:hover {
+      text-decoration: underline;
+    }
+    .slide code {
+      padding: 5px
+    }
+  </style>
 </head>
+
 <body class="list">
-	<header class="caption">
-		<h1>EasyEngine</h1>
-		<p>by rtCamp</p>
-	</header>
-	<section class="slide no-ribbon" id="cover"><div>
-		<img id="wclogo" class="alignright" src="pictures/wcmum-logo-big.png" alt="WordCamp Mumbai 2014">
-		<p class="aligncenter">
-			<img id="eelogo" width="400px" src="pictures/easyengine.png" alt="EasyEngine">
-			<br/>
-			<b>Debugging WordPress Performance Using EasyEngine</b>
-			<br/>
-			<span><em> by </em> Rahul Bansal (<em> from </em>rtCamp)</span>
-		</p>
+  <header class="caption">
+    <h1>EasyEngine</h1>
+    <p>by rtCamp</p>
+  </header>
+  <section class="slide no-ribbon" id="cover">
+    <div>
+      <img id="wclogo" class="alignright" src="pictures/wcmum-logo-big.png" alt="WordCamp Mumbai 2014">
+      <p class="aligncenter">
+        <img id="eelogo" width="400px" src="pictures/easyengine.png" alt="EasyEngine">
+        <br/>
+        <b>Debugging WordPress Performance Using EasyEngine</b>
+        <br/>
+        <span>
+          <em> by </em> Rahul Bansal (
+          <em> from </em>rtCamp)</span>
+      </p>
 
-		<style>
-			#cover img#wclogo {position: absolute; max-height: 200px; max-width: 200px; left: 835px; top: 0px;  }
-			#cover img#eelogo {margin-top: 40px }
-			#cover h2{font-size: 80px; text-align: center;}
-			#cover.slide {background: #fff}
-		</style>
-	</div></section>
-	<section class="slide"><div>
-		<h2>Table of Contents</h2>
-		<ol>
-			<li>Why Debugging is Needed?</li>
-			<li>Actual Debugging Process</li>
-			<li>Using EasyEngine for Debugging</li>
-		<ol>
-	</div></section>
+      <style>
+        #cover img#wclogo {
+          position: absolute;
+          max-height: 200px;
+          max-width: 200px;
+          left: 835px;
+          top: 0px;
+        }
+        #cover img#eelogo {
+          margin-top: 40px
+        }
+        #cover h2 {
+          font-size: 80px;
+          text-align: center;
+        }
+        #cover.slide {
+          background: #fff
+        }
+      </style>
+    </div>
+  </section>
+  <section class="slide">
+    <div>
+      <h2>Parts</h2>
+      <ol>
+        <li>Understanding the problem</li>
+        <li>Live Demo</li>
+        <li>Using EasyEngine</li>
+        <ol>
+    </div>
+  </section>
 
-	<section class="slide shout"><div>
-		<h2>Part-1</h2>
-		<p>Why Debugging is Needed?</p>
-	</div></section>
+  <section class="slide shout">
+    <div>
+      <h2>Part-1</h2>
+      <p>Understanding the problem</p>
+    </div>
+  </section>
 
-	<section class="slide"><div>
-		<h2>Story so far</h2>
-		<ul>
-			<li>Full page caching puts zero load on php-mysql backend for cached requests
-				<ul>
-					<li>e.g. Nginx fastcgi cache, w3 total cache's disk cache</li>
-				</ul>
-			</li>
-			<li>For PHP: use Zend Opcache, HHVM</li>
-			<li>For MySQL: there is query cache</li>
-		</ul>
-	</div></section>
+  <section class="slide cover">
+    <div>
+      <h2 style="color:#fff">Let's imagine!</h2>
+      <img src="pictures/imagine-2.jpg" alt="">
+    </div>
+  </section>
 
-	<section class="slide"><div>
-		<h2>But...</h2>
-		<ul>
-			<li>Not every site can be cached (full-pgae caching)</li>
-				<ul>
-					<li>e.g. membeship sites</li>
-					<li>e.g. e-commerce sites</li>
-				</ul>
-			<li>Even when full-page cache is present...</li>
-			<ul>
-				<li>If site is coded poorly, a missed request will take longer or even fail.</li>
-				<li>There is always <code>/wp-admin</code> which cannot be cached</li>
+  <section class="slide cover">
+    <div>
+      <h2 style="color: #111">WordPress is a car!</h2>
+      <img src="pictures/tesla-car2.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="color: #fff">And... hosting is road!</h2>
+      <img src="pictures/highway.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="color: #333">This is what you want!</h2>
+      <img src="pictures/drive.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide shout cover">
+    <div>
+      <h2 style="color: #000;">But!!!</h2>
+      <img src="pictures/but.gif" alt="">
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="color: #fff;">Shared hosting!</h2>
+      <img src="pictures/traffic-jam-2.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="color: #fff;">Cheap hosting!</h2>
+      <img src="pictures/bad-road.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="color:#000;">Overloaded car!</h2>
+      <img src="pictures/overloaded-3.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>So The Problems are...</h2>
+      <ol style="font-size: 150%; colot: #666;">
+        <li class="next">With roads... i.e. Hosting/Server</li>
+        <li class="next">With cars...... i.e. WordPress - Themes/Plugins</li>
+        <li class="next">Both!</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="color:#fff; margin: -70px 0  0 -85px; width: 300px">Fixing Hosting problem!</h2>
+      <img src="pictures/piggy-bank-2.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="margin: -50px 0 0 -85px">Fixing Server Problem!</h2>
+      <p class="next" style="margin: 5px 0 0 -85px">
+        <code>ee site create example.com --wp</code>
+      </p>
+      <img style="padding-top: 60px; background: #fff" src="pictures/server.svg" alt="">
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <div>
+      <h2 style="color:#000; margin: -80px 0 0 -80px">But there is no easy fix for overloaded site!</h2>
+      <img src="pictures/overloaded-3.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>Because...</h2>
+      <ul>
+        <li>Not every site can be fully cached</li>
+        <ul>
+          <li>e.g. membeship sites</li>
+          <li>e.g. e-commerce sites</li>
+        </ul>
+        <li>Even when full-page cache is present...</li>
+        <ul>
+          <li>a missed request will take longer or even fail</li>
+          <li>There is always
+            <code>/wp-admin</code> which cannot be cached</li>
+        </ul>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>So we need to take harder path...</h2>
+      <ol>
+        <li>Trial and error method to find faulty theme/plugin
+          <ul>
+            <li>theme/plugin conflicts may get skipped</li>
+            <li>inconvience to the users if site is live</li>
+          </ul>
+        </li>
+        <li class="next" style="font-size: 150%">Debug like a hero!
+				</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- <section class="slide">
+    <div>
+      <h2>Common issues &amp; workarounds</h2>
+      <ul>
+        <li>Site is running slow or even worse crashing with 5xx server error
+          <ul>
+            <li>Increase php/mysql timeout values</li>
+            <li>Add more CPU cores if needed</li>
+          </ul>
+        </li>
+        <li>PHP error log is showing
+          <code>out of memory</code> error messages
+          <ul>
+            <li>Increase RAM on server</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </section> -->
+
+  <!-- <section class="slide shout">
+    <div>
+      <h2>Part 2</h2>
+      <p>Actual Debugging</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>Two things can often go wrong</h2>
+      <ul>
+        <li>PHP codes</li>
+        <li>MySQL queries</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>Debugging Tools</h2>
+      <ul>
+        <li>MySQL:
+          <em>e.g. percona-toolkit, anemometer </em>
+        </li>
+        <li>PHP:
+          <em> e.g. xdebug, webgrind </em>
+        </li>
+      </ul>
+    </div>
+  </section> -->
+
+  <section class="slide shout">
+    <div>
+      <h2>Part 2</h2>
+      <p>Live Demo!</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>What's included in demo</h2>
+      <ul>
+        <li>Live WordPress site running bad codes</li>
+        <li>Bad codes' impact analysis using debugging tools</li>
+        <li>Fixing bad codes</li>
+        <li>Confirming performance using debugging tools</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide shout">
+    <div>
+      <h2>Part 3</h2>
+      <p>Using EasyEngine</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>EasyEngine Debug Command</h2>
+      <p>MySQL Slow Query Log
+        <br/>
+        <code>ee debug --mysql --import-slow-log</code>
+      </p>
+      <p>PHP XDebug Profiling
+        <br/>
+        <code>ee debug example.com --php</code>
+      </p>
+      <p>WordPress Debug Log
+        <br/>
+        <code>ee debug example.com --wp</code>
+      </p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>Install Web-based Tools</h2>
+      <p>Start WordPress debug log
+        <br/>
+        <code>ee stack install --admin</code>
+        <br/>
+        <span class="small">Installs webgrind, anemometer, other tools</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>PHP Xdebug Browser Addon</h2>
+      <br/>
+      <div style="margin:0 auto; width:90%">
+        <ul class="icons">
+          <li>
+            <a href="https://chrome.google.com/extensions/detail/eadndfjplgieldjbigjakmdgkmoaaaoc">
+              <img src="pictures/browser-icons/chrome.svg" alt="Chrome" height="80px" /></br>Chrome</a>
+          </li>
+          <li>
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/the-easiest-xdebug/">
+              <img src="pictures/browser-icons/firefox.svg" alt="Firefox" height="80px" /></br>Firefox</a>
+          </li>
+          <li>
+            <a href="https://github.com/benmatselby/xdebug-toggler">
+              <img src="pictures/browser-icons/safari.svg" alt="Safari" height="80px" /></br>Safari</a>
+          </li>
+          <li>
+            <a href="http://addons.opera.com/extensions/details/xdebug-launcher/">
+              <img src="pictures/browser-icons/opera.svg" alt="Opera" height="80px" /></br>Opera</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+	<section class="slide shout">
+    <div>
+      <h2>That's it!</h2>
+    </div>
+  </section>
+
+
+	<section class="slide cover">
+    <div>
+      <h2 style="color: #222; background: #fff; font-size: 275%; padding:10px 15px; width:280px; opacity: 0.8;">Bring it on!</h2>
+      <img src="pictures/meme2.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="slide shout">
+    <div>
+      <h2>The End!</h2>
+      <p>Thanks :-)</p>
+    </div>
+  </section>
+
+	<section class="slide">
+    <div>
+      <h2>Credits!</h2>
+      <ul class="credit">
+				<li><a href="https://www.flickr.com/photos/squeaks2569/5180260074/in/photostream/">Highway Alan Stark</a></li>
+				<li><a href="http://commons.wikimedia.org/wiki/File:Roadster_2.5_windmills_trimmed.jpg">"Long Drive Car" by Mariordo</a></li>
+				<li><a href="https://www.flickr.com/photos/lingaraj/2415084235/sizes/l/">Traffic Jam by vktkv</a></li>
+				<li><a href="http://abangsalim.blogspot.in/2012/01/teruknya-jalan-ini.html">Bar road by Abang Salim Bin Abang Ali</a></li>
+				<li><a href="http://imgur.com/gallery/OKtbs">Overlaoded car by by khulhafizov</a></li>
+				<li><a href="http://iconsineed.com/">Icons in server cache image by iconsineed.com</a></li>
+				<li><a href="https://taicarmen.wordpress.com/">Einstein image by Tai Carmen</a></li>
+				<li><a href="http://imgkid.com/tv-interruption-screen.shtml">"Sorry for interruption" image</a></li>
+				<li><a href="https://www.flickr.com/photos/59937401@N07/5858033130/in/photostream/">Piggy bank by Images Money</a></li>
+				<li><a href="https://www.flickr.com/photos/59937401@N07/5858033130/in/photostream/">Piggy bank by Images Money</a></li>
+				<li><a href="https://www.iconfinder.com/PixelBuddha">Browser Icons by PixelBuddha</a></li>
 			</ul>
-		</ul>
-	</div></section>
+    </div>
+  </section>
 
-	<section class="slide"><div>
-		<h2>Common issues &amp; workarounds</h2>
-		<ul>
-			<li>Site is running slow or even worse crashing with 5xx server error
-				<ul>
-					<li>Increase php/mysql timeout values</li>
-					<li>Add more CPU cores if needed</li>
-				</ul>
-			</li>
-			<li>PHP error log is showing <code>out of memory</code> error messages
-				<ul>
-					<li>Increase RAM on server</li>
-				</ul>
-			</li>
-		</ul>
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>Part 2</h2>
-		<p>Actual Debugging</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Two things can often go wrong</h2>
-		<ul>
-			<li>PHP codes</li>
-			<li>MySQL queries</li>
-		</ul>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Debugging Tools</h2>
-		<ul>
-			<li>MySQL: <em>e.g. percona-toolkit, anemometer </em> </li>
-			<li>PHP: <em> e.g. xdebug, webgrind </em> </li>
-		</ul>
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>Demo!</h2>
-		<p>It's showtime!!!</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>What's included in demo</h2>
-		<ul>
-			<li>Live WordPress site running bad codes</li>
-			<li>Bad codes' impact analysis using debugging tools</li>
-			<li>Fixing bad codes</li>
-			<li>Confirming performance using debugging tools</li>
-		</ul>
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>Part 3</h2>
-		<p>Using EasyEngine</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>EasyEngine Debug Command</h2>
-		<p>Start mysql slow query log<br/>
-		<code>ee debug --mysql --import-slow-log</code></p>
-		<p>Start php (xdebug) profiling<br/>
-		<code>ee debug example.com --php</code></p>
-		<p>Start WordPress debug log<br/>
-		<code>ee debug example.com --wp</code></p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>Install Web-based Tools Command</h2>
-		<p>Start WordPress debug log<br/>
-		<code>ee stack install --admin</code><br/>
-		<span>installs webgrind, anemometer</p>
-		<p>Start WordPress debug log<br/>
-		<code>ee stack install --admin</code><br/>
-		<span>installs webgrind, anemometer</p>
-	</div></section>
-
-	<section class="slide"><div>
-		<h2>PHP xdebug browser addon</h2>
-		<ul class="aligncenter" style="list-style-type: none;">
-			<li style="list-style-type: none;">Test</li>
-	</ul>
-
-	<img src="pictures/browser-icons/chrome.png" alt="Chrome" height="60px"/></br><a href="https://chrome.google.com/extensions/detail/eadndfjplgieldjbigjakmdgkmoaaaoc"> Chrome</a>
-
-		<table class="aligncenter">
-			<tr>
-				<td><img src="pictures/browser-icons/chrome.png" alt="Chrome" height="60px"/></td>
-				<td></td>
-			</tr>
-				<td><a href="https://chrome.google.com/extensions/detail/eadndfjplgieldjbigjakmdgkmoaaaoc">Chrome</a></td>
-			<tr>
-				<td>Firefox</td>
-				<td>Firefox</td>
-			</tr>
-			<tr>
-				<td>Safari</td>
-				<td>Safari</td>
-			</tr>
-			<tr>
-				<td>Opera</td>
-				<td>Opera</td>
-			</tr>
-		</table>
-
-<!--
-		Firefox, Chrome, Safari and Opera
-		<a href="https://addons.mozilla.org/en-US/firefox/addon/the-easiest-xdebug/">Firefox</a>, , <a href="https://github.com/benmatselby/xdebug-toggler">Safari</a> and <a href="http://addons.opera.com/extensions/details/xdebug-launcher/">Opera</a>
-
-		<p>Start WordPress debug log<br/>
-		<code>ee stack install --admin</code><br/>
-		<span>installs webgrind, anemometer</p> -->
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>Q&A</h2>
-		<p>Let's talk!</p>
-	</div></section>
-
-	<section class="slide shout"><div>
-		<h2>The End!</h2>
-		<p>Thanks :-)</p>
-	</div></section>
-
-	<!-- <p class="badge"><a href="https://github.com/shower/shower">Fork me on Github</a></p> -->
-	<!--
+  <!-- <p class="badge"><a href="https://github.com/shower/shower">Fork me on Github</a></p> -->
+  <!--
 		To hide progress bar from entire presentation
 		just remove “progress” element.
 		-->
-	<div class="progress"><div></div></div>
-	<script src="shower/shower.min.js"></script>
-	<!-- Copyright © 2013 Yours Truly, Famous Inc. -->
-	<!-- Photos by John Carey, fiftyfootshadows.net -->
+  <div class="progress">
+    <div></div>
+  </div>
+  <script src="shower/shower.min.js"></script>
+  <!-- Copyright © 2013 Yours Truly, Famous Inc. -->
+  <!-- Photos by John Carey, fiftyfootshadows.net -->
 
-	<script type="text/javascript">
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15354140-3']);
+    _gaq.push(['_setDomainName', 'rtcamp.com']);
+    _gaq.push(['_trackPageview']);
 
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-15354140-3']);
-	  _gaq.push(['_setDomainName', 'rtcamp.com']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
-	</script>
+    (function() {
+    	var ga = document.createElement('script');
+    	ga.type = 'text/javascript';
+    	ga.async = true;
+    	ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    	var s = document.getElementsByTagName('script')[0];
+    	s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 </body>
+
 </html>
