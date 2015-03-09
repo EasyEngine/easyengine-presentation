@@ -95,20 +95,20 @@
 
 <body class="list">
   <header class="caption">
-    <h1>EasyEngine</h1>
+    <h1>Debugging WordPress Performance. Using EasyEngine.</h1>
     <p>by rtCamp</p>
   </header>
   <section class="slide no-ribbon" id="cover">
     <div>
       <img id="wclogo" class="alignright" src="pictures/wcmum-logo-big.png" alt="WordCamp Mumbai 2014">
       <p class="aligncenter">
-        <img id="eelogo" width="400px" src="pictures/easyengine.png" alt="EasyEngine">
+        <img id="eelogo" width="300px" src="pictures/easyengine.png" alt="EasyEngine">
         <br/>
-        <b>Debugging WordPress Performance Using EasyEngine</b>
+        <span style="font-size:180%">Debugging WordPress Performance. Using EasyEngine.</span>
         <br/>
         <span>
-          <em> by </em> Rahul Bansal (
-          <em> from </em>rtCamp)</span>
+          <em> by </em> Rahul Bansal (<a href="http://twitter.com/rahul286">@rahul286</a>)
+          <br/><em> from </em><a href="https://twitter.com/rtcamp">@rtCamp</a></span>
       </p>
 
       <style>
@@ -118,9 +118,6 @@
           max-width: 200px;
           left: 835px;
           top: 0px;
-        }
-        #cover img#eelogo {
-          margin-top: 40px
         }
         #cover h2 {
           font-size: 80px;
@@ -210,8 +207,8 @@
     <div>
       <h2>So The Problems are...</h2>
       <ol style="font-size: 150%; colot: #666;">
-        <li class="next">With roads... i.e. Hosting/Server</li>
-        <li class="next">With cars...... i.e. WordPress - Themes/Plugins</li>
+        <li class="next">Roads... i.e. Hosting/Server</li>
+        <li class="next">Cars...... i.e. WordPress - Themes/Plugins</li>
         <li class="next">Both!</li>
       </ol>
     </div>
@@ -247,14 +244,14 @@
       <ul>
         <li>Not every site can be fully cached</li>
         <ul>
-          <li>e.g. membeship sites</li>
+          <li>e.g. membership sites</li>
           <li>e.g. e-commerce sites</li>
         </ul>
         <li>Even when full-page cache is present...</li>
         <ul>
           <li>a missed request will take longer or even fail</li>
           <li>There is always
-            <code>/wp-admin</code> which cannot be cached</li>
+            <code>/wp-admin</code> that cannot be cached</li>
         </ul>
       </ul>
     </div>
@@ -262,12 +259,12 @@
 
   <section class="slide">
     <div>
-      <h2>So we need to take harder path...</h2>
+      <h2>So we need to take the harder path...</h2>
       <ol>
-        <li>Trial and error method to find faulty theme/plugin
+        <li>Trial and error method
           <ul>
             <li>theme/plugin conflicts may get skipped</li>
-            <li>inconvience to the users if site is live</li>
+            <li>inconvenience to the users if site is live</li>
           </ul>
         </li>
         <li class="next" style="font-size: 150%">Debug like a hero!
@@ -378,7 +375,7 @@
         <br/>
         <code>ee stack install --admin</code>
         <br/>
-        <span class="small">Installs webgrind, anemometer, other tools</p>
+        <span class="small">Installs webgrind, anemometer and other tools</p>
     </div>
   </section>
 
@@ -427,7 +424,22 @@
     <div>
       <h2>The End!</h2>
       <p>Thanks :-)<br/>
-			Slides: <a href="https://rtcamp.com/slides/easyengine/wc-mumbai-2015/">View</a> | <a href="https://github.com/rtCamp/easyengine-presentation/tree/WordCampMumbai2015">Source</a></p>
+			Q&amp;A</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div>
+      <h2>Links</h2>
+      <ul class="credit">
+				<li><a href="https://rtcamp.com/slides/easyengine/wc-mumbai-2015/">View Slides</a></li>
+				<li><a href="https://github.com/rtCamp/easyengine-presentation/tree/WordCampMumbai2015">Slide source-code on github</a></li>
+				<li><a href="http://xdebug.org/">PHP Xdebug</a></li>
+				<li><a href="https://rtcamp.com/tutorials/php/xdebug-webgrind/">PHP Webgrind setup</a></li>
+				<li><a href="http://rtcamp.com/easyengine/">EasyEngine</a></li>
+				<li><a href="https://rtcamp.com/tutorials/mysql/slow-query-log-anemometer/">Anemometer (for MySQL) setup</a></li>
+				<li><a href="http://rtcamp.com/tutorials/">rtCamp Tutorials</a></li>
+			</ul>
     </div>
   </section>
 
